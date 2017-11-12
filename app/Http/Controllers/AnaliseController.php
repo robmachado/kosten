@@ -161,7 +161,7 @@ class AnaliseController extends Controller
                 <h3>Preço de Venda (a vista): R$ {{ final }}/kg</h3>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
             </div>
         </div>
     </div>
