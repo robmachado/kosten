@@ -337,7 +337,7 @@ class AnaliseController extends Controller
             }
             $tmp = str_replace('{{ referencia1 }}',$artigo->raw1,$tmp);
             $tmp = str_replace('{{ referencia2 }}',$artigo->raw2,$tmp);
-            $tmp = str_replace('{{ referencia3 }}',$artigo->raw2,$tmp);
+            $tmp = str_replace('{{ referencia3 }}',$artigo->raw3,$tmp);
             $tmp = str_replace('{{ valor1 }}',number_format($v1, 2, ',', '.'),$tmp);
             $tmp = str_replace('{{ valor2 }}',number_format($v2, 2, ',', '.'),$tmp);
             $tmp = str_replace('{{ valor3 }}',number_format($v3, 2, ',', '.'),$tmp);
