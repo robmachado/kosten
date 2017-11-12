@@ -19,6 +19,7 @@
                     <th>30 dd</th>
                     <th>45 dd</th>
                     <th>60 dd</th>
+                    <th></th>
                 </tr>
               </thead>
               <tbody>
@@ -32,6 +33,9 @@
                         <td>R$ {{ number_format($value['custo'][30],2,',','') }}</td>
                         <td>R$ {{ number_format($value['custo'][45],2,',','') }}</td>
                         <td>R$ {{ number_format($value['custo'][60],2,',','') }}</td>
+                        <td>
+                            <i class="fa fa-pencil-square-o" aria-hidden="true" style="color:#3978A7" data-toggle="modal" data-target="#{{ $value['artigo'] }}"></i>
+                        </td>
                     <tr>  
                     @endforeach  
               </tbody>    
@@ -40,4 +44,7 @@
         <a href="{{ route('analise.index') }}" class="btn btn-primary" role="button">Analise</a>
     </div>
 </div>
+@foreach($tab as $key => $value)
+    {!! html_entity_decode($value['explain']) !!}<br>
+@endforeach
 @endsection
