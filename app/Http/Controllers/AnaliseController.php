@@ -57,13 +57,13 @@ class AnaliseController extends Controller
                 <table>
                     <tbody>
                         <tr>
-                            <td>MP1 {{ referencia1 }}: R$ {{ valor1 }} * {{ p1 }}%</td><td align="right"> = R$ {{ preco1 }}/kg</td>
+                            <td>MP1 {{ referencia1 }}: R$ {{ valor1 }} x {{ p1 }}%</td><td align="right"> = R$ {{ preco1 }}/kg</td>
                         </tr>
                         <tr>
-                            <td>MP2 {{ referencia2 }}: R$ {{ valor2 }} * {{ p2 }}%</td><td align="right"> = R$  {{ preco2 }}/kg</td>
+                            <td>MP2 {{ referencia2 }}: R$ {{ valor2 }} x {{ p2 }}%</td><td align="right"> = R$  {{ preco2 }}/kg</td>
                         </tr>
                         <tr>
-                            <td>MP3 {{ referencia3 }}: R$ {{ valor3 }} * {{ p3 }}%</td><td align="right"> = R$  {{ preco3 }}/kg</td>
+                            <td>MP3 {{ referencia3 }}: R$ {{ valor3 }} x {{ p3 }}%</td><td align="right"> = R$  {{ preco3 }}/kg</td>
                         </tr>                        
                         <tr>
                             <td>Custo FIOS</td><td align="right"><strong>R$ {{ precomp }}/kg</strong></td>
