@@ -3,7 +3,7 @@
 <h2 class="page-header">Critérios</h2>
 <div class="panel panel-default">
     <div class="panel-heading">
-        Parâmetros de Calculo  <a class="btn btn-default" href="{{ route('home') }}"><i class="glyphicon glyphicon-chevron-left"></i> Voltar</a>
+        Parâmetros de Calculo  <a class="pull-right" href="{{ route('home') }}"><i class="glyphicon glyphicon-chevron-left"></i> Voltar</a>
     </div>
     <div class="panel-body">
         <div class="">

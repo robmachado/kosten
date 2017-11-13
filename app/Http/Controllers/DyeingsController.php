@@ -71,7 +71,6 @@ class DyeingsController extends Controller
 
     public function destroy(Request $request, $id)
     {
-        dd($id);
     	$dyeing = Dyeing::findOrFail($id);
 	$dyeing->delete();
 	return "OK";

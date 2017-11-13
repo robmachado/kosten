@@ -3,7 +3,7 @@
 <h2 class="page-header">Malharia</h2>
 <div class="panel panel-default">
     <div class="panel-heading">
-        Processos de Malharias  <a class="btn btn-default" href="{{ route('home') }}"><i class="glyphicon glyphicon-chevron-left"></i> Voltar</a>
+        Processos de Malharias  <a class="pull-right" href="{{ route('home') }}"><i class="glyphicon glyphicon-chevron-left"></i> Voltar</a>
     </div>
     <div class="panel-body" style="width:600px;">
         <div class="">
@@ -30,7 +30,7 @@
               </tbody>
             </table>
         </div>
-        <a href="{{url('knittings/create')}}" class="btn btn-primary" role="button">Add knitting</a>
+        <a href="{{url('knittings/create')}}" class="btn btn-primary" role="button">Adiciona Tipo de Malharia</a>
     </div>
 </div>
 @endsection

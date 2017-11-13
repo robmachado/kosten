@@ -3,7 +3,7 @@
 <h2 class="page-header">Tingimento</h2>
 <div class="panel panel-default">
     <div class="panel-heading">
-        Processos de Tingimento  <a class="btn btn-default" href="{{ route('home') }}"><i class="glyphicon glyphicon-chevron-left"></i> Voltar</a>
+        Processos de Tingimento  <a class="pull-right" href="{{ route('home') }}"><i class="glyphicon glyphicon-chevron-left"></i> Voltar</a>
     </div>
     <div class="panel-body" style="width:600px;">
         <div class="">

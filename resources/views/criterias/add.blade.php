@@ -3,7 +3,7 @@
 <h2 class="page-header">Criterios</h2>
 <div class="panel panel-default">
     <div class="panel-heading">
-        Adiciona/Modifica Critários de Cálculo
+        Adiciona/Modifica Critérios de Cálculo
     </div>
     <div class="panel-body">
         <form action="{{ url('/criterias'.( isset($model) ? "/" . $model->id : "")) }}" method="POST" class="form-horizontal">

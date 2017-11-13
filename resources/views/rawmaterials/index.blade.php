@@ -3,7 +3,7 @@
 <h2 class="page-header">Materiais</h2>
 <div class="panel panel-default">
     <div class="panel-heading">
-        Fios (Matérias-Primas)  <a class="btn btn-default" href="{{ route('home') }}"><i class="glyphicon glyphicon-chevron-left"></i> Voltar</a>
+        Fios (Matérias-Primas)  <a class="pull-right" href="{{ route('home') }}"><i class="glyphicon glyphicon-chevron-left"></i> Voltar</a>
     </div>
     <div class="panel-body">
         <div class="">

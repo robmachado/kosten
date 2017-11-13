@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<h2 class="page-header">Dyeing</h2>
+<h2 class="page-header">Tinturaria</h2>
 <div class="panel panel-default">
     <div class="panel-heading">
         Adiciona/Modifica Processo Tingimento
@@ -23,7 +23,7 @@
                     <input type="text" name="class" id="class" class="form-control" value="{{$model['class'] or ''}}">
                 </div>
             </div>
-                                                                                                                                    <div class="form-group">
+            <div class="form-group">
                 <label for="value" class="col-sm-3 control-label">Valor Custo (R$)</label>
                 <div class="col-sm-6">
                     <input type="text" name="value" id="value" class="form-control" value="{{$model['value'] or ''}}">
@@ -41,10 +41,4 @@
 
     </div>
 </div>
-
-
-
-
-
-
 @endsection

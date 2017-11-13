@@ -7,6 +7,7 @@
     "require": {
         "php": ">=7.0.0",
         "fideloper/proxy": "~3.3",
+        "geekcom/phpjasper": "^2.5",
         "kepex/laravel-crud-generator": "^0.1.7",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
