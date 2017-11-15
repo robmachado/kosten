@@ -54,13 +54,11 @@
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
-                        <label for="pagamento">Pagamento</label>
-                        <select id="pagamento" name="pagamento" class="form-control">
-                            <option value="0">À Vista Antecipado</option>
-                            <option value="15">15 dd</option>
-                            <option value="30">30 dd</option>
-                            <option value="45">45 dd</option>
-                            <option value="60">60 dd</option>
+                        <label for="embalagem">Embalagem</label>
+                        <select id="embalagem" name="embalagem" class="form-control">
+                            @foreach($package as $key => $value)
+                            <option value="{{ $key }}" {{($value == 'SACO PLASTICO' ? 'selected': '')}}>{{ $value }}</option>
+                            @endforeach       
                         </select>
                     </div>
                 </div>

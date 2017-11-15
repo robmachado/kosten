@@ -9,6 +9,6 @@ class Packaging extends Model
     protected $table = 'packagings';
     
     protected $fillable = [
-        'pack', 'description', 'value'
+        'pack', 'description', 'value', 'quota'
     ];
 }

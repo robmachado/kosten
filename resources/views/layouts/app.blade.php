@@ -34,6 +34,7 @@
                             <li><a href="{{ route('boms.index') }}">BOM</a></li>
                             <li><a href="{{ route('criterias.index') }}">Critérios</a></li>
                             <li><a href="{{ route('destinations.index') }}">Destinos</a></li>
+                            <li><a href="{{ route('packagings.index') }}">Embalagens</a></li>
                         @endguest
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
@@ -70,6 +71,15 @@
 </div>        
     </div>
     <script src="{{ asset('js/app.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+        window.setTimeout(function() {
+            $(".alert").fadeTo(1500, 0).slideUp(500, function(){
+                $(this).remove(); 
+            });
+        }, 2000);
+    });
+    </script>
     @yield('page-scripts')
 </body>
 </html>

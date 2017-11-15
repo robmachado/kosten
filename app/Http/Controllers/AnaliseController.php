@@ -11,6 +11,7 @@ use App\Models\Destination;
 use App\Models\Criteria;
 use App\Models\Dyeing;
 use App\Models\Knitting;
+use App\Models\Packaging;
 
 class AnaliseController extends Controller
 {
@@ -23,6 +24,7 @@ class AnaliseController extends Controller
         </div>
         <div class="modal-body">
             <h2>Detalhamento de Calculo</h2>
+            <br/>
                 <h3>Custos Indiretos</h3>
                 <table>
                     <tbody>
@@ -53,6 +55,7 @@ class AnaliseController extends Controller
                 </tbody>
             </table>
             <h3>Custos Diretos</h3>
+            <br/>
                 <p><strong>Custo das Materias-primas(Fios)</strong></p>
                 <table>
                     <tbody>
@@ -70,6 +73,7 @@ class AnaliseController extends Controller
                         </tr>
                     </tbody>
                 </table>
+                <br/>
                 <p><strong>Custo de Malharia</strong></p>
                 <table>
                     <tbody>
@@ -81,6 +85,7 @@ class AnaliseController extends Controller
                         </tr>    
                     <tbody>
                 </table>
+                <br/>
                 <p><strong>Custo Tinturaria</strong></p>
                 <table>
                     <tbody>
@@ -92,6 +97,19 @@ class AnaliseController extends Controller
                         </tr>
                     <tbody>
                 </table>
+                <br/>
+                <p><strong>Custo de Embalagem</strong></p>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>{{ pack }}: R$ {{ packvalue }}</td><td>Proporção por kg: {{ packquota }}%/kg</td>
+                        </tr>
+                        <tr>
+                            <td>Sub-total: (R$ {{ custodir }} + R$ {{ custoembalagem }})</td><td align="right"> = <strong>R$ {{ custodirtotal }}/kg</strong></td>
+                        </tr>
+                    <tbody>
+                </table>
+                <br/>
                 <h3>Custo de Produção</h3>
                 <table>
                     <tbody>
@@ -102,16 +120,17 @@ class AnaliseController extends Controller
                             <td align="center">+</td>
                         </tr>
                         <tr>
-                            <td>Custos Diretos</td><td align="right">R$ {{ custodir }}/kg</td>
+                            <td>Custos Diretos</td><td align="right">R$ {{ custodirtotal }}/kg</td>
                         </tr>
                         <tr>
                             <td align="center">=</td>
                         </tr>
                         <tr>
-                            <td>Custo de Produção = R$ {{ custoindireto }} + R$ {{ custodir }}</td><td align="right"> =  <strong>R$ {{ custoprod }}/kg</strong></td>
+                            <td>Custo de Produção = R$ {{ custoindireto }} + R$ {{ custodirtotal }}</td><td align="right"> =  <strong>R$ {{ custoprod }}/kg</strong></td>
                         </tr>    
                     <tbody>
                 </table>
+                <br/>
                 <h3>Markup (Impostos e outras inclusões)</h3>
                 <table>
                     <tbody>
@@ -142,6 +161,7 @@ class AnaliseController extends Controller
                     <tbody>
                 </table>
                 <p><strong>Markup:  {{ icms }}% + {{ ipi }}% + {{ pis }}% + {{ cofins }}% + {{ csll }}% + {{ ir }}% + {{ comiss }}% + {{ lucro }}% = {{ markup }}%</strong></p>
+                <br/>
                 <h3>Preço de Venda (a vista)</h3> 
                 <table>
                     <tbody>
@@ -174,7 +194,8 @@ class AnaliseController extends Controller
         $dyes = DB::table('dyeings')->select('id','class')->orderBy('class')->pluck('class', 'id');
         $destinos = DB::table('destinations')->select('id','destination')->orderBy('id')->pluck('destination', 'id');
         $artigos = DB::table('boms')->select('id','article')->orderBy('article')->pluck('article', 'id');
-        return View::make('analise',compact(['dyes', 'destinos', 'artigos']));
+        $package = DB::table('packagings')->select('id','pack')->orderBy('pack')->pluck('pack', 'id');
+        return View::make('analise',compact(['dyes', 'destinos', 'artigos', 'package']));
     }
     
     public function calcular(Request $request)
@@ -189,14 +210,14 @@ class AnaliseController extends Controller
         $artigo_id = $request->artigo;
         $tingimento_id = $request->tingimento;
         $destino_id  = $request->destino;
-        $pagamento = $request->pagamento;
+        $embalagem_id = $request->embalagem;
         
         $artigo = Bom::findOrFail($artigo_id);
         $tingimento = Dyeing::findOrFail($tingimento_id);
         $destino = Destination::findOrFail($destino_id);
         $criterios = Criteria::findOrFail(1);
+        $pack = Packaging::findOrFail($embalagem_id);
         $malharia = Knitting::where('cod','=', $artigo->knittings_cod)->firstOrFail();
-        
         $raw1 = RawMaterial::where('reference','=', $artigo->raw1)->firstOrFail();
         $raw2 = new \stdClass();
         $raw2->value = 0;
@@ -234,6 +255,8 @@ class AnaliseController extends Controller
         $custoMalha = ($custoMP + $malharia->price)/0.99; //1% de perda
         
         $custoDireto = ($custoMalha + $tingimento->value) / (1-$artigo->losses);
+        $custoEmbalagem = $pack->value * $pack->quota;
+        $custoDiretoTotal =  $custoDireto + $custoEmbalagem;
         
         $markup = $destino->icms
             + $criterios->profit 
@@ -244,7 +267,7 @@ class AnaliseController extends Controller
             + $criterios->csll
             + $criterios->ir;
         
-        $custoTotal = ($custoDireto+$custoIndireto)/(1-$markup);
+        $custoTotal = ($custoDiretoTotal+$custoIndireto)/(1-$markup);
         //$custo = [
         //    'ci'=>$custoIndireto,
         //    'cm'=> $custoMalha,
@@ -285,7 +308,12 @@ class AnaliseController extends Controller
         $std->value = $tingimento->value;
         $std->losses = $artigo->losses;
         $std->custoDireto = $custoDireto;
+        $std->pack = $pack->pack;
+        $std->packvalue = $pack->value;
+        $std->packquota = $pack->quota*100;
+        $std->custoEmbalagem = $custoEmbalagem;
         $std->custoIndireto = $custoIndireto;
+        $std->custoDiretoTotal = $custoDiretoTotal;
         $std->icms = $destino->icms;
         $std->ipi = $criterios->ipi;
         $std->pis = $criterios->pis;
@@ -308,7 +336,8 @@ class AnaliseController extends Controller
         $params = [
             'destino' => $destino->destination,
             'tingimento'=> $tingimento->class,
-            'icms'=> $destino->icms
+            'icms'=> $destino->icms,
+            'embalagem' => $pack->pack
         ];
         return View::make('retorno',compact(['params','tab']));
     }
@@ -319,9 +348,12 @@ class AnaliseController extends Controller
         
         $tingimento_id = $request->tingimento;
         $destino_id  = $request->destino;
+        $embalagem_id = $request->embalagem;
+        
         $tingimento = Dyeing::findOrFail($tingimento_id);
         $destino = Destination::findOrFail($destino_id);
         $criterios = Criteria::findOrFail(1);
+        $pack = Packaging::findOrFail($embalagem_id);
         $artigos = Bom::all();
         
         foreach ($artigos as $artigo) {
@@ -343,23 +375,16 @@ class AnaliseController extends Controller
                 try {
                     $raw2 = RawMaterial::where('reference','=', $artigo->raw2)->firstOrFail();
                 } catch (\Exception $e) {
-                    dd($artigo->article.'' .$artigo->raw2 .'<br>');
+                    
                 }
             }
             if (!empty($artigo->raw3)) {
                 try {
                     $raw3 = RawMaterial::where('reference','=', $artigo->raw3)->firstOrFail();
                 } catch (\Exception $e) {
-                    dd($artigo->article.'' .$artigo->raw3 .'<br>');
+                    
                 }
             }
-            $tmp = str_replace('{{ artigo }}',$artigo->article,$this->template);
-            $tmp = str_replace('{{ nome }}',$artigo->article,$tmp);
-            $tmp = str_replace('{{ custooperacioal }}',number_format($criterios->operational_cost, 2, ',', '.'),$tmp);
-            $tmp = str_replace('{{ custofinanceiro }}',number_format($criterios->financial_cost, 2, ',', '.'),$tmp);
-            $tmp = str_replace('{{ custoindiretototal }}',number_format($criterios->operational_cost + $criterios->financial_cost, 2, ',', '.'),$tmp);
-            $tmp = str_replace('{{ rateio }}',number_format($criterios->apportionment, 0, ',', '.'),$tmp);
-            $tmp = str_replace('{{ custoindireto }}',number_format(($criterios->operational_cost + $criterios->financial_cost)/$criterios->apportionment, 2, ',', '.'),$tmp);
             
             $custoIndireto = (float) ($criterios->operational_cost + $criterios->financial_cost) / $criterios->apportionment;
             $custoDireto = 0;
@@ -380,41 +405,11 @@ class AnaliseController extends Controller
                     + $artigo->perc2 * $raw2->value
                     + $artigo->perc3 * $raw3->value;
             }
-            $tmp = str_replace('{{ referencia1 }}',$artigo->raw1,$tmp);
-            $tmp = str_replace('{{ referencia2 }}',$artigo->raw2,$tmp);
-            $tmp = str_replace('{{ referencia3 }}',$artigo->raw3,$tmp);
-            $tmp = str_replace('{{ valor1 }}',number_format($v1, 2, ',', '.'),$tmp);
-            $tmp = str_replace('{{ valor2 }}',number_format($v2, 2, ',', '.'),$tmp);
-            $tmp = str_replace('{{ valor3 }}',number_format($v3, 2, ',', '.'),$tmp);
-            $tmp = str_replace('{{ p1 }}',number_format($artigo->perc1 * 100, 2, ',', '.'),$tmp);
-            $tmp = str_replace('{{ p2 }}',number_format($artigo->perc2 * 100, 2, ',', '.'),$tmp);
-            $tmp = str_replace('{{ p3 }}',number_format($artigo->perc3 * 100, 2, ',', '.'),$tmp);
-            $tmp = str_replace('{{ preco1 }}',number_format($artigo->perc1 * $v1, 2, ',', '.'),$tmp);
-            $tmp = str_replace('{{ preco2 }}',number_format($artigo->perc2 * $v2, 2, ',', '.'),$tmp);
-            $tmp = str_replace('{{ preco3 }}',number_format($artigo->perc3 * $v3, 2, ',', '.'),$tmp);
-            $tmp = str_replace('{{ precomp }}',number_format($custoMP, 2, ',', '.'),$tmp);
-            $tmp = str_replace('{{ cod }}',$artigo->knittings_cod,$tmp);
-            $tmp = str_replace('{{ valorkni }}',number_format($malharia->price, 2, ',', '.'),$tmp);
-            
+                        
             $custoMalha = (float) ($custoMP + $malharia->price)/0.99; //1% de perda
             $custoDireto = (float) ($custoMalha + $tingimento->value) / (1-$artigo->losses);
-            
-            $tmp = str_replace('{{ mpmal }}',number_format($custoMalha, 2, ',', '.'),$tmp);
-            $tmp = str_replace('{{ tipo }}',$tingimento->class,$tmp);
-            $tmp = str_replace('{{ valortint }}',number_format($tingimento->value, 2, ',', '.'),$tmp);
-            $tmp = str_replace('{{ losses }}',number_format($artigo->losses*100, 2, ',', '.'),$tmp);
-            $tmp = str_replace('{{ custodir }}',number_format($custoDireto, 2, ',', '.'),$tmp);
-            $tmp = str_replace('{{ custoprod }}',number_format($custoDireto+$custoIndireto, 2, ',', '.'),$tmp);
-            
-            $tmp = str_replace('{{ icms }}',number_format($destino->icms*100, 2, ',', '.'),$tmp);
-            $tmp = str_replace('{{ ipi }}',number_format($criterios->ipi*100, 2, ',', '.'),$tmp);
-            $tmp = str_replace('{{ pis }}',number_format($criterios->pis*100, 2, ',', '.'),$tmp);
-            $tmp = str_replace('{{ cofins }}',number_format($criterios->cofins*100, 2, ',', '.'),$tmp);
-            $tmp = str_replace('{{ csll }}',number_format($criterios->csll*100, 2, ',', '.'),$tmp);
-            $tmp = str_replace('{{ ir }}',number_format($criterios->ir*100, 2, ',', '.'),$tmp);
-            $tmp = str_replace('{{ comiss }}',number_format($criterios->commission*100, 2, ',', '.'),$tmp);
-            $tmp = str_replace('{{ lucro }}',number_format($criterios->profit*100, 2, ',', '.'),$tmp);
-            
+            $custoEmbalagem = $pack->value * $pack->quota;
+            $custoDiretoTotal =  $custoDireto + $custoEmbalagem;
             
             $markup = (float) $destino->icms
                 + $criterios->profit 
@@ -424,12 +419,8 @@ class AnaliseController extends Controller
                 + $criterios->cofins
                 + $criterios->csll
                 + $criterios->ir;
-            
-            $tmp = str_replace('{{ markup }}',number_format($markup*100, 2, ',', '.'),$tmp);
-            $tmp = str_replace('{{ complementar }}',number_format((1-$markup)*100, 2, ',', '.'),$tmp);
-            
-            $custoTotal = ($custoDireto+$custoIndireto)/(1-$markup);
-            $tmp = str_replace('{{ final }}',number_format($custoTotal, 2, ',', '.'),$tmp);
+                        
+            $custoTotal = ($custoDiretoTotal+$custoIndireto)/(1-$markup);
 
             $custo = [];
             foreach ($pgtos as $pgto) {
@@ -437,19 +428,61 @@ class AnaliseController extends Controller
                 $custoFinal = (float) $custoTotal * $juros;
                 $custo[$pgto] = round($custoFinal, 2);
             }
+            
+            $std = new \stdClass();
+            $std->article = $artigo->article;
+            $std->operational_cost = $criterios->operational_cost;
+            $std->financial_cost = $criterios->financial_cost;
+            $std->apportionment = $criterios->apportionment;
+            $std->raw1=$artigo->raw1;
+            $std->raw2=$artigo->raw2;
+            $std->raw3=$artigo->raw3;
+            $std->v1 = $v1;
+            $std->v2 = $v2;
+            $std->v3 = $v3;
+            $std->perc1 = $artigo->perc1;
+            $std->perc2 = $artigo->perc2;
+            $std->perc3 = $artigo->perc3;
+            $std->custoMP = $custoMP;
+            $std->knittings_cod = $artigo->knittings_cod;
+            $std->price = $malharia->price;
+            $std->custoMalha = $custoMalha;
+            $std->class = $tingimento->class;
+            $std->value = $tingimento->value;
+            $std->losses = $artigo->losses;
+            $std->custoDireto = $custoDireto;
+            $std->pack = $pack->pack;
+            $std->packvalue = $pack->value;
+            $std->packquota = $pack->quota*100;
+            $std->custoEmbalagem = $custoEmbalagem;
+            $std->custoIndireto = $custoIndireto;
+            $std->custoDiretoTotal = $custoDiretoTotal;
+            $std->icms = $destino->icms;
+            $std->ipi = $criterios->ipi;
+            $std->pis = $criterios->pis;
+            $std->cofins = $criterios->cofins;
+            $std->csll = $criterios->csll;
+            $std->ir = $criterios->ir;
+            $std->commission = $criterios->commission;
+            $std->profit = $criterios->profit;
+            $std->markup = $markup;
+            $std->custoTotal = $custoTotal;
+            $explain = $this->explain($std);
+            
             $tab[] = [
                 'artigo' => $artigo->article,
                 'descricao' => $artigo->description,
                 'composicao' => $artigo->composition,
                 'custo' => $custo,
-                'explain'=>$tmp
+                'explain'=>$explain
             ];
         }
         $icms = $destino->icms*100;
         $params = [
             'destino' => $destino->destination,
             'tingimento'=>$tingimento->class,
-            'icms'=>$icms
+            'icms'=>$icms,
+            'embalagem' => $pack->pack
         ];
         return ['params'=>$params, 'tab'=>$tab];
     }
@@ -483,6 +516,13 @@ class AnaliseController extends Controller
         $tmp = str_replace('{{ valortint }}',number_format($std->value, 2, ',', '.'),$tmp);
         $tmp = str_replace('{{ losses }}',number_format($std->losses*100, 2, ',', '.'),$tmp);
         $tmp = str_replace('{{ custodir }}',number_format($std->custoDireto, 2, ',', '.'),$tmp);
+        $tmp = str_replace('{{ pack }}',$std->pack,$tmp);
+        $tmp = str_replace('{{ packvalue }}',number_format($std->packvalue, 2, ',', '.'),$tmp);
+        $tmp = str_replace('{{ packquota }}',number_format($std->packquota, 2, ',', '.'),$tmp);
+        $tmp = str_replace('{{ custoembalagem }}',number_format($std->custoEmbalagem, 2, ',', '.'),$tmp);
+        $tmp = str_replace('{{ custodir }}',number_format($std->custoDireto, 2, ',', '.'),$tmp);
+        $tmp = str_replace('{{ custoemb }}',number_format($std->custoEmbalagem, 2, ',', '.'),$tmp);
+        $tmp = str_replace('{{ custodirtotal }}',number_format($std->custoDiretoTotal, 2, ',', '.'),$tmp);
         $tmp = str_replace('{{ custoprod }}',number_format($std->custoDireto+$std->custoIndireto, 2, ',', '.'),$tmp);
         $tmp = str_replace('{{ icms }}',number_format($std->icms*100, 2, ',', '.'),$tmp);
         $tmp = str_replace('{{ ipi }}',number_format($std->ipi*100, 2, ',', '.'),$tmp);

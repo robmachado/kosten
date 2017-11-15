@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Models\Dyeing;
+use App\Models\Packaging;
 use Illuminate\Support\Facades\View;
 use DB;
 
-class DyeingsController extends Controller
+class PackagingsController extends Controller
 {
     public function __construct()
     {
@@ -18,46 +18,48 @@ class DyeingsController extends Controller
 
     public function index(Request $request)
     {
-        return View::make('dyeings.index')        
-            ->with('dyes', Dyeing::all());
+        return View::make('packagings.index')        
+            ->with('pack', Packaging::all());
     }
 
     public function create(Request $request)
     {
-        return view('dyeings.add', [
+        return view('packagings.add', [
             []
         ]);
     }
 
     public function edit(Request $request, $id)
     {
-        $dyeing = Dyeing::findOrFail($id);
-        return view('dyeings.add', [
-            'model' => $dyeing
+        $pack = Packaging::findOrFail($id);
+        return view('packagings.add', [
+            'model' => $pack
         ]);
     }
     
     public function show(Request $request, $id)
     {
-        $dyeing = Dyeing::findOrFail($id);
-	return view('dyeings.show', [
-            'model' => $dyeing
+        $pack = Packaging::findOrFail($id);
+	return view('packagings.show', [
+            'model' => $pack
         ]);
     }
 
     public function update(Request $request)
     {
-	$dyeing = null;
+	$pack = null;
 	if( $request->id > 0 ) {
-            $dyeing = Dyeing::findOrFail($request->id);
+            $pack = Packaging::findOrFail($request->id);
         } else { 
-            $dyeing = new Dyeing;
+            $pack = new Packaging;
 	}
-        $dyeing->id = $request->id ? : 0;
-        $dyeing->class = $request->class;
-        $dyeing->value = $request->value;
-        $dyeing->save();
-        return redirect('/dyeings');
+        $pack->id = $request->id ? : 0;
+        $pack->pack = $request->pack;
+        $pack->description = $request->description;
+        $pack->value = $request->value;
+        $pack->quota = $request->quota;
+        $pack->save();
+        return redirect('/packagings');
     }
 
     public function store(Request $request)
@@ -71,9 +73,9 @@ class DyeingsController extends Controller
 
     public function destroy(Request $request, $id)
     {
-    	$dyeing = Dyeing::findOrFail($id);
-	$dyeing->delete();
-	session()->flash('success', 'Registro removido!');
+    	$pack = Packaging::findOrFail($id);
+	$pack->delete();
+        session()->flash('success', 'Registro removido!');
 	return back();
     }
 }

@@ -82,8 +82,8 @@ class CriteriasController extends Controller
 
     public function destroy(Request $request, $id)
     {
-        $criteria = Criteria::findOrFail($id);
-	$criteria->delete();
-	return "OK";
+        //$criteria = Criteria::findOrFail($id);
+	//$criteria->delete();
+	//return "OK";
     }
 }

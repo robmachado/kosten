@@ -12,11 +12,12 @@ class PackagingsSeeder extends Seeder
      */
     public function run()
     {
+        $q1 = (float) 1/15;
+        $q2 = (float) 1/20;
         $packs = [
-            ['pack' =>'FARDO','description'=>'Fardo de Pano','value'=> '9.0'],
-            ['pack' =>'CAIXA','description'=>'Caixa de papelão','value'=> '14.35'],
-            ['pack' =>'SACO PLASTICO','description'=>'Saco de Plastico transparente','value'=> '8.56'],
-            ['pack' =>'PALETE','description'=>'Palete de madeira certificada, com cada peça embalada em plástico','value'=> '140.22']
+            ['pack' =>'FARDO','description'=>'Fardo de Pano + saco plástico','value'=> 8.56+9.20, 'quota'=>$q1],
+            ['pack' =>'CAIXA','description'=>'Caixa de papelão','value'=> '14.35', 'quota'=>$q2],
+            ['pack' =>'SACO PLASTICO','description'=>'Saco de Plastico transparente','value'=> '8.56', 'quota'=>$q1]
         ];
         Packaging::truncate();
         foreach ($packs as $pack) {
@@ -24,6 +25,7 @@ class PackagingsSeeder extends Seeder
             $pa->pack = $pack['pack'];
             $pa->description = $pack['description'];
             $pa->value = $pack['value'];
+            $pa->quota = $pack['quota'];
             $pa->save();
         }
     }

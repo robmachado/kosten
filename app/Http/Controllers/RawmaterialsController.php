@@ -11,12 +11,6 @@ use DB;
 
 class RawmaterialsController extends Controller
 {
-    //
-    public function __construct()
-    {
-        //$this->middleware('auth');
-    }
-
 
     public function index(Request $request)
     {
@@ -43,7 +37,7 @@ class RawmaterialsController extends Controller
     {
         $rawmaterial = Rawmaterial::findOrFail($id);
 	return view('rawmaterials.show', [
-	        'model' => $rawmaterial
+	   'model' => $rawmaterial
         ]);
     }
 
@@ -79,6 +73,7 @@ class RawmaterialsController extends Controller
     {
 	$rawmaterial = Rawmaterial::findOrFail($id);
 	$rawmaterial->delete();
-	return "OK";
+	session()->flash('success', 'Registro removido!');
+	return back();
     }
 }

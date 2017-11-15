@@ -27,3 +27,4 @@ Route::resource('/rawmaterials', 'RawmaterialsController');
 Route::resource('/boms', 'BomsController');
 Route::resource('/destinations', 'DestinationsController');
 Route::resource('/knittings', 'KnittingsController');
+Route::resource('/packagings', 'PackagingsController');

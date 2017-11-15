@@ -5,6 +5,12 @@
     <div class="panel-heading">
         Destinos <a class="pull-right" href="{{ route('home') }}"><i class="glyphicon glyphicon-chevron-left"></i> Voltar</a>
     </div>
+    @if (session()->has('success'))
+    <div class="alert alert-success">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <strong>{{session()->get('success')}}</strong>
+    </div>    
+    @endif
     <div class="panel-body">
         <div class="">
             <table class="table table-striped" id="thegrid">
@@ -24,7 +30,9 @@
                     <td>{{ $value->destination }}</td>
                     <td>{{ $value->icms*100 }} %</td>
                     <td><a href="{{ url('destinations') }}/{{ $value->id }}/edit"><i class="fa fa-pencil-square-o" aria-hidden="true" style="color:#3978A7"></i></a></td>
-                    <td><i class="fa fa-trash-o" aria-hidden="true" style="color:red" onclick="doDelete({{ $value->id }})"></i></td>
+                    <td>
+                        
+                    </td>
                 </tr>
               @endforeach                    
               </tbody>
@@ -33,8 +41,4 @@
         <a href="{{url('destinations/create')}}" class="btn btn-primary" role="button">Novo destino</a>
     </div>
 </div>
-@endsection
-@section('scripts')
-    <script type="text/javascript">
-    </script>
 @endsection

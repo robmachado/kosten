@@ -1,9 +1,9 @@
 @extends('layouts.app')
 @section('content')
-<h2 class="page-header">Tingimento</h2>
+<h2 class="page-header">Embalagens</h2>
 <div class="panel panel-default">
     <div class="panel-heading">
-        Processos de Tingimento  <a class="pull-right" href="{{ route('home') }}"><i class="glyphicon glyphicon-chevron-left"></i> Voltar</a>
+        Embalagens  <a class="pull-right" href="{{ route('home') }}"><i class="glyphicon glyphicon-chevron-left"></i> Voltar</a>
     </div>
     @if (session()->has('success'))
     <div class="alert alert-success">
@@ -17,28 +17,33 @@
               <thead>
                 <tr bgcolor="#AAAAAA">
                     <th class="text-center">Id</th>
-                    <th class="text-center">Tipo</th>
+                    <th class="text-center">Modo</th>
+                    <th class="text-center">Descrição</th>
                     <th class="text-center">Custo</th>
+                    <th class="text-center">Parcela</th>
                     <th style="width:5%"></th>
                     <th style="width:5%"></th>
                 </tr>
               </thead>
               <tbody>
-              @foreach($dyes as $key => $value)
+              @foreach($pack as $key => $value)
                 <tr>
                     <td class="text-center" style="width:10%">{{ $value->id }}</td>
-                    <td style="width:60%">{{ $value->class }}</td>
-                    <td class="text-right" style="width:20%">R$ {{ number_format($value->value, 2, ',', '.') }}</td>
+                    <td style="width:30%">{{ $value->pack }}</td>
+                    <td style="width:30%">{{ $value->description }}</td>
+                    <td class="text-right" style="width:15%">R$ {{ number_format($value->value, 2, ',', '.') }}</td>
+                    <td class="text-right" style="width:15%">{{ number_format($value->quota*100, 2, ',', '.') }}%</td>
                     <td style="width:5%">
-                        <a href="{{ url('dyeings') }}/{{ $value->id }}/edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+                        <a href="{{ url('packagings') }}/{{ $value->id }}/edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
                     <td style="width:5%">
-                        {!! Btn::delete($value->id, $value->class)!!}
-                    </td>
+                        {!! Btn::delete($value->id, $value->pack)!!}
+                    </td>    
                 </tr>
               @endforeach      
               </tbody>
             </table>
         </div>
-        <a href="{{url('dyeings/create')}}" class="btn btn-primary" role="button">Adiciona tingimento</a>
+        <a href="{{url('packagings/create')}}" class="btn btn-primary" role="button">Adiciona Embalagem</a>
     </div>
+</div>
 @endsection

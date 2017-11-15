@@ -18,6 +18,7 @@ class CreatePackagingsTable extends Migration
             $table->string('pack', 25)->unique();
             $table->text('description');
             $table->float('value');
+            $table->float('quota');
             $table->timestamps();
         });
     }
