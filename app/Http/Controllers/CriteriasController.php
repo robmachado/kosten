@@ -11,13 +11,6 @@ use DB;
 
 class CriteriasController extends Controller
 {
-
-    public function __construct()
-    {
-        //$this->middleware('auth');
-    }
-
-
     public function index(Request $request)
     {
         return View::make('criterias.index')        
@@ -49,10 +42,6 @@ class CriteriasController extends Controller
 
     public function update(Request $request)
     {
-	    //
-	    /*$this->validate($request, [
-	        'name' => 'required|max:255',
-	    ]);*/
 	$criteria = null;
 	if ($request->id > 0) {
             $criteria = Criteria::findOrFail($request->id);

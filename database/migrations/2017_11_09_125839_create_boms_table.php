@@ -22,10 +22,10 @@ class CreateBomsTable extends Migration
             $table->string('raw1', 25);
             $table->string('raw2', 25)->nullable();
             $table->string('raw3', 25)->nullable();
-            $table->float('perc1', 8, 4);
-            $table->float('perc2', 8, 4)->nullable();
-            $table->float('perc3', 8, 4)->nullable();
-            $table->float('losses', 8, 4);
+            $table->decimal('perc1', 8, 6);
+            $table->decimal('perc2', 8, 6)->nullable();
+            $table->decimal('perc3', 8, 6)->nullable();
+            $table->decimal('losses', 8, 6);
             $table->timestamps();
         });
     }

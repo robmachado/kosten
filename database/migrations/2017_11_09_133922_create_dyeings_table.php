@@ -16,7 +16,7 @@ class CreateDyeingsTable extends Migration
         Schema::create('dyeings', function (Blueprint $table) {
             $table->increments('id');
             $table->string('class')->unique();
-            $table->float('value');
+            $table->decimal('value', 8, 2);
             $table->timestamps();
         });
     }

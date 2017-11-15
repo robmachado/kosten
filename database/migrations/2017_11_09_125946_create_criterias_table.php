@@ -15,17 +15,17 @@ class CreateCriteriasTable extends Migration
     {
         Schema::create('criterias', function (Blueprint $table) {
             $table->increments('id');
-            $table->float('operational_cost', 16, 2);
-            $table->float('financial_cost', 16, 2);
-            $table->float('apportionment', 16, 2);
-            $table->float('profit', 8, 4);
-            $table->float('commission', 8, 4);
-            $table->float('financial_rate', 8, 4);
-            $table->float('ipi', 8, 4);
-            $table->float('pis', 8, 4);
-            $table->float('cofins', 8, 4);
-            $table->float('csll', 8, 4);
-            $table->float('ir', 8, 4);
+            $table->decimal('operational_cost', 16, 2);
+            $table->decimal('financial_cost', 16, 2);
+            $table->decimal('apportionment', 16, 2);
+            $table->decimal('profit', 8, 6);
+            $table->decimal('commission', 8, 6);
+            $table->decimal('financial_rate', 8, 6);
+            $table->decimal('ipi', 8, 6);
+            $table->decimal('pis', 8, 6);
+            $table->decimal('cofins', 8, 6);
+            $table->decimal('csll', 8, 6);
+            $table->decimal('ir', 8, 6);
             $table->timestamps();
         });
     }

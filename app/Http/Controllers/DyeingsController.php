@@ -54,8 +54,8 @@ class DyeingsController extends Controller
             $dyeing = new Dyeing;
 	}
         $dyeing->id = $request->id ? : 0;
-        $dyeing->class = $request->class;
-        $dyeing->value = $request->value;
+        $dyeing->class = trim($request->class);
+        $dyeing->value = str_replace(',','.',$request->value);
         $dyeing->save();
         return redirect('/dyeings');
     }

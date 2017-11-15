@@ -16,8 +16,8 @@ class CreateRawmaterialsTable extends Migration
         Schema::create('rawmaterials', function (Blueprint $table) {
             $table->increments('id');
             $table->string('reference', 25)->unique();
-            $table->float('value');
-            $table->float('valueicms');
+            $table->decimal('value', 8, 4);
+            $table->decimal('valueicms', 8, 4);
             $table->string('provider_cod');
             $table->string('description');
             $table->string('basecomponent');

@@ -16,7 +16,7 @@ class CreateDestinationsTable extends Migration
         Schema::create('destinations', function (Blueprint $table) {
             $table->increments('id');
             $table->string('destination', 25)->unique();
-            $table->float('icms');
+            $table->decimal('icms', 8, 2);
             $table->timestamps();
         });
     }

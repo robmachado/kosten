@@ -16,7 +16,7 @@ class CreateKnittingsTable extends Migration
         Schema::create('knittings', function (Blueprint $table) {
             $table->increments('id');
             $table->string('cod', 10)->unique();
-            $table->float('price');
+            $table->decimal('price', 8, 2);
             $table->timestamps();
         });
     }
