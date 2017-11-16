@@ -8,5 +8,5 @@ class Knitting extends Model
 {
     protected $table = 'knittings';
  
-    protected $fillable = ['cod', 'price'];
+    protected $fillable = ['cod','description','price'];
 }

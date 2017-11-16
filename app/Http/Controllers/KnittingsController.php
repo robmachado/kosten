@@ -56,7 +56,8 @@ class KnittingsController extends Controller
             $knitting = new Knitting;
 	}
         $knitting->id = $request->id?:0;
-	$knitting->cod = $request->cod;
+	$knitting->cod = strtoupper(trim($request->cod));
+        $knitting->description = strtoupper(trim($request->description));
 	$knitting->price = $request->price;
 	$knitting->save();
         return redirect('/knittings');

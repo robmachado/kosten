@@ -13,7 +13,7 @@
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label for="artigo">Artigo</label>
-                        <select id="artigo" name="artigo" class="form-control">
+                        <select id="artigo" name="artigo" class="form-control" >
                             @foreach($artigos as $key => $value)
                             <option value="{{ $key }}">{{ $value }}</option>
                             @endforeach

@@ -18,6 +18,7 @@
                 <tr bgcolor="#AAAAAA">
                     <th>Id</th>
                     <th>Codigo</th>
+                    <th>Descrição</th>
                     <th>Preço</th>
                     <th style="width:50px"></th>
                     <th style="width:50px"></th>
@@ -27,7 +28,8 @@
               @foreach($knittings as $key => $value)
                 <tr>
                     <td class="text-center" style="width:10%">{{ $value->id }}</td>
-                    <td style="width:60%">{{ $value->cod }}</td>
+                    <td style="width:20%">{{ $value->cod }}</td>
+                    <td style="width:40%">{{ $value->description }}</td>
                     <td style="width:20%">R$ {{ number_format($value->price, 2, ',', '.') }}</td>
                     <td style="width:5%"><a href="{{ url('knittings') }}/{{ $value->id }}/edit"><i class="fa fa-pencil-square-o" aria-hidden="true" style="color:#3978A7"></i></a></td>
                     <td style="width:5%">{!! Btn::delete($value->id, $value->cod)!!}</td>

@@ -13,7 +13,7 @@ class BomsSeeder extends Seeder
     public function run()
     {
         $boms = [
-            ['article'=>'2103CDB03','description'=>'BIELASTICO PURGADO','composition'=>'100%PA 6.6','knittings_cod'=>'M01','raw1'=>'PA661X42/13T','raw2'=>'','raw3'=>'','perc1'=>'1','perc2'=>'','perc3'=>'','losses'=>'6.5'],
+            ['article'=>'2103CDB03','description'=>'BIELASTICO','composition'=>'100%PA 6.6','knittings_cod'=>'M01','raw1'=>'PA661X42/13T','raw2'=>'','raw3'=>'','perc1'=>'1','perc2'=>'','perc3'=>'','losses'=>'6.5'],
             ['article'=>'2116BGB00','description'=>'POLICHAREL','composition'=>'100%PES','knittings_cod'=>'M01','raw1'=>'PES1X75/36T','raw2'=>'','raw3'=>'','perc1'=>'1','perc2'=>'','perc3'=>'','losses'=>'6.5'],
             ['article'=>'2324BCB01','description'=>'MULTICREPE','composition'=>'100%PA 6.6','knittings_cod'=>'M01','raw1'=>'PA661X80/68T','raw2'=>'','raw3'=>'','perc1'=>'1','perc2'=>'','perc3'=>'','losses'=>'6.5'],
             ['article'=>'2330BCB00','description'=>'FITNESS','composition'=>'96%PA 6.6  TEXT 2/78/48 + 4% PA 6.6 1/42/13','knittings_cod'=>'M01','raw1'=>'PA662X78/48T','raw2'=>'PA1X42/13L','raw3'=>'','perc1'=>'0.96','perc2'=>'0.04','perc3'=>'','losses'=>'6.5'],

@@ -25,6 +25,12 @@
                 </div>
             </div>
             <div class="form-group">
+                <label for="description" class="col-sm-3 control-label">Descrição</label>
+                <div class="col-sm-6">
+                    <input type="text" name="description" id="description" class="form-control" value="{{$model['description'] or ''}}">
+                </div>
+            </div>
+            <div class="form-group">
                 <label for="price" class="col-sm-3 control-label">Valor/kg</label>
                 <div class="col-sm-6">
                     <input type="text" name="price" id="price" class="form-control" value="{{$model['price'] or ''}}">
