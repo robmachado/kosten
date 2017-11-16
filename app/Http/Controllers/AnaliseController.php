@@ -268,17 +268,7 @@ class AnaliseController extends Controller
             + $criterios->ir;
         
         $custoTotal = ($custoDiretoTotal+$custoIndireto)/(1-$markup);
-        //$custo = [
-        //    'ci'=>$custoIndireto,
-        //    'cm'=> $custoMalha,
-        //    'cd'=>$custoDireto,
-        //    'mup'=>$markup,
-        //    'ct'=>$custoTotal,
-        //    'cf'=> $custoFinal,
-        //    'perda'=>$perda,
-        //    'juros'=>$j,
-        //    'icms'=>$icms
-        //];
+     
         $custo = [];
         foreach ($this->pgtos as $pgto) {
             $juros = (1 + $criterios->financial_rate)**($pgto/30);
@@ -337,6 +327,8 @@ class AnaliseController extends Controller
             'destino' => $destino->destination,
             'tingimento'=> $tingimento->class,
             'icms'=> $destino->icms,
+            'markup' => $markup,
+            'custoprod' => $custoDiretoTotal+$custoIndireto,
             'embalagem' => $pack->pack
         ];
         return View::make('retorno',compact(['params','tab']));
