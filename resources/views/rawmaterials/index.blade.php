@@ -33,7 +33,11 @@
               </thead>
               <tbody>
               @foreach($raws as $key => $value)
-                <tr>
+                <tr
+                    @if ($value->value >= $value->valueicms) 
+                        class="alert-danger"
+                    @endif
+                    >
                     <td class="text-center">{{ $value->id }}</td>
                     <td>{{ $value->reference }}</td>
                     <td>R$ {{ number_format($value->value, 2, ',', '.') }}</td>

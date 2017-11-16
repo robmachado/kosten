@@ -30,9 +30,9 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="value_icms" class="col-sm-3 control-label">Valor Com ICMS</label>
+                <label for="valueicms" class="col-sm-3 control-label">Valor Com ICMS</label>
                 <div class="col-sm-6">
-                    <input type="text" name="value_icms" id="value_icms" class="form-control" value="{{$model['value_icms'] or ''}}">
+                    <input type="text" name="valueicms" id="valueicms" class="form-control" value="{{$model['valueicms'] or ''}}">
                 </div>
             </div>
             <div class="form-group">

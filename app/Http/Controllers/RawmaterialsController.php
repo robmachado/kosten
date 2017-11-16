@@ -52,7 +52,7 @@ class RawmaterialsController extends Controller
         $rawmaterial->id = $request->id ? : 0;
         $rawmaterial->reference = $request->reference;
         $rawmaterial->value = (float) str_replace(',', '.', $request->value);
-        $rawmaterial->valueicms = (float) str_replace(',', '.', $request->value_icms);
+        $rawmaterial->valueicms = (float) str_replace(',', '.', $request->valueicms);
         $rawmaterial->provider_cod = !empty($request->provider_cod) ? $request->provider_cod : '';
         $rawmaterial->description = !empty($request->description) ? $request->description : '';
         $rawmaterial->basecomponent = !empty($request->base_component) ? $request->base_component : '';
