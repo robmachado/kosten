@@ -10,7 +10,7 @@
             {{ csrf_field() }}
             
             <div class="row">
-                <div class="col-sm-3">
+                <div class="col-sm-3 col-md-offset-1">
                     <div class="form-group">
                         <label for="artigo">Artigo</label>
                         <select id="artigo" name="artigo" class="form-control" >
@@ -20,7 +20,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-3 col-md-offset-1">
                     <div class="form-group">
                         <label for="destino">Destino</label>
                         <select id="destino" name="destino" class="form-control">
@@ -30,7 +30,7 @@
                         </select>    
                     </div>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-3 col-md-offset-1">
                     <div class="form-group">
                         <div class="form-check">
                             <label class="form-check-label">
@@ -42,7 +42,7 @@
                 </div>    
             </div>    
             <div class="row">    
-                <div class="col-sm-3">
+                <div class="col-sm-3 col-md-offset-1">
                     <div class="form-group">
                         <label for="tingimento">Tingimento</label>
                         <select id="tingimento" name="tingimento" class="form-control">
@@ -52,7 +52,7 @@
                         </select>    
                     </div>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-3 col-md-offset-1">
                     <div class="form-group">
                         <label for="embalagem">Embalagem</label>
                         <select id="embalagem" name="embalagem" class="form-control">
@@ -65,7 +65,7 @@
                 
             </div>
             <div class="row">
-                <div class="col-sm-3">
+                <div class="col-sm-3 col-md-offset-1">
                     <div class="form-group">
                         <div class="col-sm-offset-3 col-sm-6">
                             <button type="submit" class="btn btn-success">
@@ -74,7 +74,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-3 col-md-offset-1">
                     <div class="form-group">
                         <div class="col-sm-offset-3 col-sm-6">
                             <a class="btn btn-default" href="{{ route('home') }}"><i class="glyphicon glyphicon-chevron-left"></i> Voltar</a>
