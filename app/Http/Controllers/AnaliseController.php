@@ -29,7 +29,7 @@ class AnaliseController extends Controller
                 <table>
                     <tbody>
                         <tr>
-                            <td>Custos Operacionais</td><td align="right">R$ {{ custooperacioal }}</td>
+                            <td>Custos Operacionais</td><td align="right">R$ {{ custooperacional }}</td>
                         </tr>
                     <tr>
                         <td align="center">+</td>
@@ -216,6 +216,7 @@ class AnaliseController extends Controller
         $tingimento = Dyeing::findOrFail($tingimento_id);
         $destino = Destination::findOrFail($destino_id);
         $criterios = Criteria::findOrFail(1);
+        //dd($criterios);
         $pack = Packaging::findOrFail($embalagem_id);
         $malharia = Knitting::where('cod','=', $artigo->knittings_cod)->firstOrFail();
         $raw1 = RawMaterial::where('reference','=', $artigo->raw1)->firstOrFail();
@@ -231,7 +232,7 @@ class AnaliseController extends Controller
         if (!empty($artigo->raw3)) {
             $raw3 = RawMaterial::where('reference','=', $artigo->raw3)->firstOrFail();
         }
-        $custoIndireto = ($criterios->operational_cost + $criterios->financial_cost) / $criterios->apportionment;
+        $custoIndireto = ($criterios->operational + $criterios->financial) / $criterios->apportionment;
         
         $custoDireto = 0;
         if ($destino->icms == 0) {
@@ -271,15 +272,15 @@ class AnaliseController extends Controller
      
         $custo = [];
         foreach ($this->pgtos as $pgto) {
-            $juros = (1 + $criterios->financial_rate)**($pgto/30);
+            $juros = (1 + $criterios->rate)**($pgto/30);
             $custoFinal = (float) $custoTotal * $juros;
             $custo[$pgto] = round($custoFinal, 2);
         }
             
         $std = new \stdClass();
         $std->article = $artigo->article;
-        $std->operational_cost = $criterios->operational_cost;
-        $std->financial_cost = $criterios->financial_cost;
+        $std->operational = $criterios->operational;
+        $std->financial = $criterios->financial;
         $std->apportionment = $criterios->apportionment;
         $std->raw1=$artigo->raw1;
         $std->raw2=$artigo->raw2;
@@ -378,7 +379,7 @@ class AnaliseController extends Controller
                 }
             }
             
-            $custoIndireto = (float) ($criterios->operational_cost + $criterios->financial_cost) / $criterios->apportionment;
+            $custoIndireto = (float) ($criterios->operational + $criterios->financial) / $criterios->apportionment;
             $custoDireto = 0;
             if ($destino->icms == 0) {
                 $v1 = $raw1->valueicms;
@@ -483,11 +484,11 @@ class AnaliseController extends Controller
     {
         $tmp = str_replace('{{ artigo }}',$std->article,$this->template);
         $tmp = str_replace('{{ nome }}',$std->article,$tmp);
-        $tmp = str_replace('{{ custooperacioal }}',number_format($std->operational_cost, 2, ',', '.'),$tmp);
-        $tmp = str_replace('{{ custofinanceiro }}',number_format($std->financial_cost, 2, ',', '.'),$tmp);
-        $tmp = str_replace('{{ custoindiretototal }}',number_format($std->operational_cost + $std->financial_cost, 2, ',', '.'),$tmp);
+        $tmp = str_replace('{{ custooperaciomal }}',number_format($std->operational, 2, ',', '.'),$tmp);
+        $tmp = str_replace('{{ custofinanceiro }}',number_format($std->financial, 2, ',', '.'),$tmp);
+        $tmp = str_replace('{{ custoindiretototal }}',number_format($std->operational + $std->financial, 2, ',', '.'),$tmp);
         $tmp = str_replace('{{ rateio }}',number_format($std->apportionment, 0, ',', '.'),$tmp);
-        $tmp = str_replace('{{ custoindireto }}',number_format(($std->operational_cost + $std->financial_cost)/$std->apportionment, 2, ',', '.'),$tmp);
+        $tmp = str_replace('{{ custoindireto }}',number_format(($std->operational + $std->financial)/$std->apportionment, 2, ',', '.'),$tmp);
         $tmp = str_replace('{{ referencia1 }}',$std->raw1,$tmp);
         $tmp = str_replace('{{ referencia2 }}',$std->raw2,$tmp);
         $tmp = str_replace('{{ referencia3 }}',$std->raw3,$tmp);
@@ -515,7 +516,7 @@ class AnaliseController extends Controller
         $tmp = str_replace('{{ custodir }}',number_format($std->custoDireto, 2, ',', '.'),$tmp);
         $tmp = str_replace('{{ custoemb }}',number_format($std->custoEmbalagem, 2, ',', '.'),$tmp);
         $tmp = str_replace('{{ custodirtotal }}',number_format($std->custoDiretoTotal, 2, ',', '.'),$tmp);
-        $tmp = str_replace('{{ custoprod }}',number_format($std->custoDireto+$std->custoIndireto, 2, ',', '.'),$tmp);
+        $tmp = str_replace('{{ custoprod }}',number_format($std->custoDiretoTotal + $std->custoIndireto, 2, ',', '.'),$tmp);
         $tmp = str_replace('{{ icms }}',number_format($std->icms*100, 2, ',', '.'),$tmp);
         $tmp = str_replace('{{ ipi }}',number_format($std->ipi*100, 2, ',', '.'),$tmp);
         $tmp = str_replace('{{ pis }}',number_format($std->pis*100, 2, ',', '.'),$tmp);

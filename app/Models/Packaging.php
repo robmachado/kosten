@@ -11,4 +11,14 @@ class Packaging extends Model
     protected $fillable = [
         'pack', 'description', 'value', 'quota'
     ];
+    
+    public function setValueAttribute($value)
+    {
+       $this->attributes['value'] = str_replace(',', '.', $value);
+    }
+
+    public function setQuotaAttribute($value)
+    {
+        $this->attributes['quota'] = str_replace(',', '.', $value)/100;
+    }
 }

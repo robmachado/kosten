@@ -34,6 +34,7 @@ class KnittingsSeeder extends Seeder
         foreach ($knitts as $knitt) {
             $kni = new Knitting();
             $kni->cod = $knitt['cod'];
+            $kni->description = $knitt['description'];
             $kni->price = $knitt['price'];
             $kni->save();
         }

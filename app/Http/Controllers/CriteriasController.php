@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Criteria;
+use App\Http\Requests\CriteriaRequest;
 use Illuminate\Support\Facades\View;
 use DB;
 
@@ -40,7 +41,7 @@ class CriteriasController extends Controller
         ]);
     }
 
-    public function update(Request $request)
+    public function update(CriteriaRequest $request)
     {
 	$criteria = null;
 	if ($request->id > 0) {
@@ -49,12 +50,12 @@ class CriteriasController extends Controller
             $criteria = new Criteria;
 	}
         $criteria->id = $request->id ? : 0;
-        $criteria->operational_cost = $request->operational_cost;
-        $criteria->financial_cost = $request->financial_cost;
-        $criteria->apportionment = $request->apportionment;
+        $criteria->operational = number_format($request->operational, 0, '', '');
+        $criteria->financial = number_format($request->financial, 0, '', '');
+        $criteria->apportionment = number_format($request->apportionment, 0, '', '');
         $criteria->profit = $request->profit;
         $criteria->commission = $request->commission;
-        $criteria->financial_rate = $request->financial_rate;
+        $criteria->rate = $request->rate;
         $criteria->ipi = $request->ipi;
         $criteria->pis = $request->pis;
         $criteria->cofins = $request->cofins;
@@ -64,7 +65,7 @@ class CriteriasController extends Controller
         return redirect('/criterias');
     }
 
-    public function store(Request $request)
+    public function store(CriteriaRequest $request)
     {
     	return $this->update($request);
     }

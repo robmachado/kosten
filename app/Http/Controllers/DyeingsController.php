@@ -6,16 +6,12 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Dyeing;
+use App\Http\Requests\DyeingsRequest;
 use Illuminate\Support\Facades\View;
 use DB;
 
 class DyeingsController extends Controller
 {
-    public function __construct()
-    {
-        //$this->middleware('auth');
-    }
-
     public function index(Request $request)
     {
         return View::make('dyeings.index')        
@@ -45,7 +41,7 @@ class DyeingsController extends Controller
         ]);
     }
 
-    public function update(Request $request)
+    public function update(DyeingsRequest $request)
     {
 	$dyeing = null;
 	if( $request->id > 0 ) {
@@ -60,7 +56,7 @@ class DyeingsController extends Controller
         return redirect('/dyeings');
     }
 
-    public function store(Request $request)
+    public function store(DyeingsRequest $request)
     {
         return $this->update($request);
     }

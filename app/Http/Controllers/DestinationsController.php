@@ -8,15 +8,11 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Destination;
 use Illuminate\Support\Facades\View;
+use App\Http\Requests\DestinationRequest;
 use DB;
 
 class DestinationsController extends Controller
 {
-    public function __construct()
-    {
-        //$this->middleware('auth');
-    }
-
     public function index(Request $request)
     {
         return View::make('destinations.index')        
@@ -44,8 +40,7 @@ class DestinationsController extends Controller
             'model' => $destination	    ]);
     }
 
-
-    public function update(Request $request)
+    public function update(DestinationRequest $request)
     {
         $destination = null;
 	if ($request->id > 0) {
@@ -60,7 +55,7 @@ class DestinationsController extends Controller
         return redirect('/destinations');
     }
 
-    public function store(Request $request)
+    public function store(DestinationRequest $request)
     {
         return $this->update($request);
     }

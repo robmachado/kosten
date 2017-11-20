@@ -20,4 +20,14 @@ class RawMaterial extends Model
         'filaments',
         'finishing'
     ];
+    
+    public function setValueAttribute($value)
+    {
+       $this->attributes['value'] = str_replace(',', '.', $value);
+    }
+    
+    public function setValueicmsAttribute($value)
+    {
+       $this->attributes['valueicms'] = str_replace(',', '.', $value);
+    }
 }

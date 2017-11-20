@@ -14,12 +14,12 @@ class CriteriasSeeder extends Seeder
     {
         Criteria::truncate();
         $crit = new Criteria();
-        $crit->operational_cost=180000;
-        $crit->financial_cost=120000;
+        $crit->operational=180000;
+        $crit->financial=120000;
         $crit->apportionment=40000;
         $crit->profit=0.1;
         $crit->commission=0.03;
-        $crit->financial_rate=0.027;
+        $crit->rate=0.027;
         $crit->ipi=0;
         $crit->pis=0.0165;
         $crit->cofins=0.076;

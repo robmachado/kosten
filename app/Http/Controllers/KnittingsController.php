@@ -7,17 +7,12 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Knitting;
+use App\Http\Requests\KnittingRequest;
 use Illuminate\Support\Facades\View;
 use DB;
 
 class KnittingsController extends Controller
 {
-    //
-    public function __construct()
-    {
-        //$this->middleware('auth');
-    }
-
     public function index(Request $request)
     {
         return View::make('knittings.index')        
@@ -47,7 +42,7 @@ class KnittingsController extends Controller
         ]);
     }
 
-    public function update(Request $request)
+    public function update(KnittingRequest $request)
     {
 	$knitting = null;
 	if ($request->id > 0) {
@@ -63,9 +58,9 @@ class KnittingsController extends Controller
         return redirect('/knittings');
     }
 
-    public function store(Request $request)
+    public function store(KnittingRequest $request)
     {
-    	return $this->update($request);
+      	return $this->update($request);
     }
 
     public function destroy(Request $request, $id)

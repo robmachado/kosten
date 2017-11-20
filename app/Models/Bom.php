@@ -21,4 +21,24 @@ class Bom extends Model
         'perc3',
         'losses'
     ];
+    
+    public function setPerc1Attribute($value)
+    {
+        $this->attributes['perc1'] = str_replace(',', '.', $value)/100;
+    }
+    
+    public function setPerc2Attribute($value)
+    {
+        $this->attributes['perc2'] = str_replace(',', '.', $value)/100;
+    }
+    
+    public function setPerc3Attribute($value)
+    {
+        $this->attributes['perc3'] = str_replace(',', '.', $value)/100;
+    }
+    
+    public function setLossesAttribute($value)
+    {
+        $this->attributes['losses'] = str_replace(',', '.', $value)/100;
+    }
 }

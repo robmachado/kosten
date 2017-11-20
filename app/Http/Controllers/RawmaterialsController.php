@@ -7,11 +7,11 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\View;
 use App\Models\RawMaterial;
+use App\Http\Requests\RawmaterialRequest;
 use DB;
 
 class RawmaterialsController extends Controller
 {
-
     public function index(Request $request)
     {
         return View::make('rawmaterials.index')        
@@ -41,7 +41,7 @@ class RawmaterialsController extends Controller
         ]);
     }
 
-    public function update(Request $request)
+    public function update(RawmaterialRequest $request)
     {
 	$rawmaterial = null;
 	if ($request->id > 0) {
@@ -51,11 +51,11 @@ class RawmaterialsController extends Controller
 	}
         $rawmaterial->id = $request->id ? : 0;
         $rawmaterial->reference = $request->reference;
-        $rawmaterial->value = (float) str_replace(',', '.', $request->value);
-        $rawmaterial->valueicms = (float) str_replace(',', '.', $request->valueicms);
+        $rawmaterial->value = $request->value;
+        $rawmaterial->valueicms = $request->valueicms;
         $rawmaterial->provider_cod = !empty($request->provider_cod) ? $request->provider_cod : '';
         $rawmaterial->description = !empty($request->description) ? $request->description : '';
-        $rawmaterial->basecomponent = !empty($request->base_component) ? $request->base_component : '';
+        $rawmaterial->basecomponent = !empty($request->basecomponent) ? $request->basecomponent : '';
         $rawmaterial->cables = !empty($request->cables) ? $request->cables : 0;
         $rawmaterial->dtex = !empty($request->dtex) ? $request->dtex : 0;
         $rawmaterial->filaments = !empty($request->filaments) ? $request->filaments : 0;
@@ -64,7 +64,7 @@ class RawmaterialsController extends Controller
         return redirect('/rawmaterials');
     }
 
-    public function store(Request $request)
+    public function store(RawmaterialRequest $request)
     {
 	return $this->update($request);
     }

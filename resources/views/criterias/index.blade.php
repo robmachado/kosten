@@ -29,17 +29,17 @@
               @foreach($crits as $key => $value)
                 <tr>
                     <td>{{ $value->id }}</td>
-                    <td>R$ {{ number_format($value->operational_cost, 0, ',', '.') }}</td>
-                    <td>R$ {{ number_format($value->financial_cost, 0, ',', '.') }}</td>
-                    <td>{{ number_format($value->apportionment/1000, 0, ',', '.') }} ton</td>
-                    <td>{{ number_format($value->profit*100, 2, ',', '.') }} %</td>
-                    <td>{{ number_format($value->commission*100, 2, ',', '.') }} %</td>
-                    <td>{{ number_format($value->financial_rate*100, 2, ',', '.') }} %</td>
-                    <td>{{ number_format($value->ipi*100, 2, ',', '.') }} %</td>
-                    <td>{{ number_format($value->pis*100, 2, ',', '.') }} %</td>
-                    <td>{{ number_format($value->cofins*100, 2, ',', '.') }} %</td>
-                    <td>{{ number_format($value->csll*100, 2, ',', '.') }} %</td>
-                    <td>{{ number_format($value->ir*100, 2, ',', '.') }} %</td>
+                    <td>R$ {{ $value->operational }}</td>
+                    <td>R$ {{ $value->financial }}</td>
+                    <td>{{ ($value->apportionment/1000) }} ton</td>
+                    <td>{{ $value->profit*100 }} %</td>
+                    <td>{{ $value->commission*100 }} %</td>
+                    <td>{{ $value->rate*100 }} %</td>
+                    <td>{{ $value->ipi*100 }} %</td>
+                    <td>{{ $value->pis*100 }} %</td>
+                    <td>{{ $value->cofins*100 }} %</td>
+                    <td>{{ $value->csll*100 }} %</td>
+                    <td>{{ $value->ir*100 }} %</td>
                     <td><a href="{{ url('criterias') }}/{{ $value->id }}/edit"><i class="fa fa-pencil-square-o" aria-hidden="true" style="color:#3978A7"></i></a></td>
                 </tr>
               @endforeach                    

@@ -7,18 +7,12 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Bom;
+use App\Http\Requests\BomRequest;
 use Illuminate\Support\Facades\View;
 use DB;
 
 class BomsController extends Controller
 {
-    //
-    public function __construct()
-    {
-        //$this->middleware('auth');
-    }
-
-
     public function index(Request $request)
     {
         return View::make('boms.index')        
@@ -48,7 +42,7 @@ class BomsController extends Controller
         ]);
     }
 
-    public function update(Request $request)
+    public function update(BomRequest $request)
     {
 	$bom = null;
 	if ( $request->id > 0 ) {
@@ -72,7 +66,7 @@ class BomsController extends Controller
         return redirect('/boms');
     }
 
-    public function store(Request $request)
+    public function store(BomRequest $request)
     {
 	return $this->update($request);
     }
@@ -84,6 +78,4 @@ class BomsController extends Controller
         session()->flash('success', 'Registro removido!');
 	return back();
     }
-
-	
 }

@@ -6,16 +6,12 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Packaging;
+use App\Http\Requests\PackagingRequest;
 use Illuminate\Support\Facades\View;
 use DB;
 
 class PackagingsController extends Controller
 {
-    public function __construct()
-    {
-        //$this->middleware('auth');
-    }
-
     public function index(Request $request)
     {
         return View::make('packagings.index')        
@@ -45,7 +41,7 @@ class PackagingsController extends Controller
         ]);
     }
 
-    public function update(Request $request)
+    public function update(PackagingRequest $request)
     {
 	$pack = null;
 	if( $request->id > 0 ) {
@@ -62,7 +58,7 @@ class PackagingsController extends Controller
         return redirect('/packagings');
     }
 
-    public function store(Request $request)
+    public function store(PackagingRequest $request)
     {
         return $this->update($request);
     }
