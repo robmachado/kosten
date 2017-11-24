@@ -35,7 +35,7 @@ class RawMaterial extends Model
     
     public function getValueFormattedAttribute()
     {
-        return Values::brnumber($this->value,2);
+        return Values::brnumber($this->value, 2);
     }
     
     public function setValueicmsAttribute($value)
@@ -45,6 +45,6 @@ class RawMaterial extends Model
     
     public function getValueicmsFormattedAttribute()
     {
-        return Values::brnumber($this->valueicms,2);
+        return Values::brnumber($this->valueicms, 2);
     }
 }

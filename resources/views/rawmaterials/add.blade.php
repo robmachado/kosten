@@ -38,7 +38,7 @@
             <div class="form-group {{ $errors->has('value') ? 'has-error' : '' }}">
                 <label for="value" class="col-sm-3 control-label">Valor Sem ICMS</label>
                 <div class="col-sm-6">
-                    <input type="text" name="value" id="value" class="form-control" value="{{ $model->value or old('value') }}">
+                    <input type="text" name="value" id="value" class="form-control" value="{{ $model->value_formatted or old('value') }}">
                     @if($errors->has('value'))
                         <span class="help-block">{{ $errors->first('value') }}</span>
                     @endif
@@ -48,7 +48,7 @@
             <div class="form-group {{ $errors->has('valueicms') ? 'has-error' : '' }}">
                 <label for="valueicms" class="col-sm-3 control-label">Valor Com ICMS</label>
                 <div class="col-sm-6">
-                    <input type="text" name="valueicms" id="valueicms" class="form-control" value="{{ $model->valueicms or old('valueicms') }}">
+                    <input type="text" name="valueicms" id="valueicms" class="form-control" value="{{ $model->valueicms_formatted or old('valueicms') }}">
                     @if($errors->has('valueicms'))
                         <span class="help-block">{{ $errors->first('valueicms') }}</span>
                     @endif

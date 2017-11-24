@@ -40,8 +40,8 @@
                     >
                     <td class="text-center">{{ $value->id }}</td>
                     <td>{{ $value->reference }}</td>
-                    <td>R$ {{ number_format($value->value, 2, ',', '.') }}</td>
-                    <td>R$ {{ number_format($value->valueicms, 2, ',', '.') }}</td>
+                    <td>R$ {{ $value->value_formatted }}</td>
+                    <td>R$ {{ $value->valueicms_formatted }}</td>
                     <td>{{ $value->provider_cod }}</td>
                     <td>{{ $value->description }}</td>
                     <td>{{ $value->basecomponent }}</td>
