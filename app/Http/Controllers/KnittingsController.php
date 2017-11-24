@@ -42,7 +42,7 @@ class KnittingsController extends Controller
         ]);
     }
 
-    public function update(Request $request)
+    public function update(KnittingRequest $request)
     {
 	$knitting = null;
 	if ($request->id > 0) {

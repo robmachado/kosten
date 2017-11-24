@@ -25,7 +25,7 @@ class DyeingsRequest extends FormRequest
     {
         return [
             'class'=>'required|min:3|max:50|unique:dyeings,class,'.$this->id,
-            'value'=>['required',new \App\Rules\NumericBR]
+            'value'=>'required|numericbr'
         ];
     }
     

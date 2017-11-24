@@ -25,7 +25,7 @@ class DestinationRequest extends FormRequest
     {
         return [
             'destination' => 'required|min:3|max:25|unique:destinations,destination,'.$this->id,
-            'icms' => ['required',new \App\Rules\NumericBR]
+            'icms' => 'required|numericbr'
         ];
     }
     

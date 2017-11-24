@@ -25,8 +25,8 @@ class RawmaterialRequest extends FormRequest
     {
         return [
             'reference' => 'required|min:3|max:50|unique:rawmaterials,reference,'.$this->id,
-            'value' => ['required', new \App\Rules\NumericBR ],
-            'valueicms' => ['required', new \App\Rules\NumericBR ],
+            'value' => 'required|numericbr',
+            'valueicms' => 'required|numericbr|greaterthan:value',
             'provider_cod' => 'nullable|min:3|max:255',
             'description' => 'required|min:3|max:255',
             'basecomponent' => 'required|min:2|max:255',
@@ -45,9 +45,10 @@ class RawmaterialRequest extends FormRequest
             'reference.max'=>'No máximo coloque 50 caracteres',
             'reference.unique'=>'A denominação da matéria-prima deve ser única,'. $this->reference .' já existe e não pode haver repetição.',
             'value.required'=>'O valor é necessário.',
-            'value.numeric'=>'O valor deve conter apenas numeros.',
+            'value.numericbr'=>'O valor deve conter apenas numeros.',
             'valueicms.required'=>'O valor do tingimento é necessário.',
-            'valueicms.numeric'=>'O valor deve conter apenas numeros.',
+            'valueicms.numericbr'=>'O valor deve conter apenas numeros.',
+            'valueicms.greaterthan'=>'O valor com ICMS deve ser maior que o valor SEM o ICMS.',
             'provider_cod.min'=>'Use pelo menos tres caracteres.',
             'provider_cod.max'=>'No máximo coloque 255 caracteres',
             'description.required'=>'A descrição é necessária.',

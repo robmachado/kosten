@@ -424,8 +424,8 @@ class AnaliseController extends Controller
             
             $std = new \stdClass();
             $std->article = $artigo->article;
-            $std->operational_cost = $criterios->operational_cost;
-            $std->financial_cost = $criterios->financial_cost;
+            $std->operational = $criterios->operational;
+            $std->financial = $criterios->financial;
             $std->apportionment = $criterios->apportionment;
             $std->raw1=$artigo->raw1;
             $std->raw2=$artigo->raw2;

@@ -27,14 +27,14 @@ class CriteriaRequest extends FormRequest
             'operational' => 'required|integer',
             'financial' => 'required|integer',
             'apportionment' => 'required|integer',
-            'profit'=>['required',new \App\Rules\NumericBR],
-            'commission'=>['required',new \App\Rules\NumericBR],
-            'rate'=>['required',new \App\Rules\NumericBR],
-            'ipi'=>['required',new \App\Rules\NumericBR],
-            'pis'=>['required',new \App\Rules\NumericBR],
-            'cofins'=>['required',new \App\Rules\NumericBR],
-            'csll'=>['required',new \App\Rules\NumericBR],
-            'ir'=>['required',new \App\Rules\NumericBR]
+            'profit'=>'required|numericbr',
+            'commission'=>'required|numericbr',
+            'rate'=>'required|numericbr',
+            'ipi'=>'required|numericbr',
+            'pis'=>'required|numericbr',
+            'cofins'=>'required|numericbr',
+            'csll'=>'required|numericbr',
+            'ir'=>'required|numericbr'
         ];
     }
     

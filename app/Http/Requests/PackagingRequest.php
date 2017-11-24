@@ -26,8 +26,8 @@ class PackagingRequest extends FormRequest
         return [
             'pack'=>'required|min:3|max:25|unique:packagings,pack,'.$this->id,
             'description'=>'required|min:3|max:255',
-            'value'=>['required',new \App\Rules\NumericBR],
-            'quota'=>['required',new \App\Rules\NumericBR]
+            'value'=>'required|numericbr',
+            'quota'=>'required|numericbr'
         ];
     }
     public function messages()
