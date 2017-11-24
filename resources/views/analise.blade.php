@@ -64,7 +64,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-3 col-md-offset-1">
+                <div class="col-sm-3 col-md-offset-0">
                     <div class="form-group">
                         <div class="col-sm-offset-3 col-sm-6">
                             <button type="submit" class="btn btn-success">
