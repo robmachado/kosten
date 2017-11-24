@@ -484,7 +484,7 @@ class AnaliseController extends Controller
     {
         $tmp = str_replace('{{ artigo }}',$std->article,$this->template);
         $tmp = str_replace('{{ nome }}',$std->article,$tmp);
-        $tmp = str_replace('{{ custooperaciomal }}',number_format($std->operational, 2, ',', '.'),$tmp);
+        $tmp = str_replace('{{ custooperacional }}',number_format($std->operational, 2, ',', '.'),$tmp);
         $tmp = str_replace('{{ custofinanceiro }}',number_format($std->financial, 2, ',', '.'),$tmp);
         $tmp = str_replace('{{ custoindiretototal }}',number_format($std->operational + $std->financial, 2, ',', '.'),$tmp);
         $tmp = str_replace('{{ rateio }}',number_format($std->apportionment, 0, ',', '.'),$tmp);

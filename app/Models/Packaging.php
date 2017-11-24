@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Packaging extends Model
 {
+    use Values;
+    
     protected $table = 'packagings';
     
     protected $fillable = [
@@ -14,11 +16,11 @@ class Packaging extends Model
     
     public function setValueAttribute($value)
     {
-       $this->attributes['value'] = str_replace(',', '.', $value);
+       $this->attributes['value'] = Values::real($value);
     }
 
     public function setQuotaAttribute($value)
     {
-        $this->attributes['quota'] = str_replace(',', '.', $value)/100;
+        $this->attributes['quota'] = Values::percent($value);
     }
 }

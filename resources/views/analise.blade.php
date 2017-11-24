@@ -62,7 +62,6 @@
                         </select>
                     </div>
                 </div>
-                
             </div>
             <div class="row">
                 <div class="col-sm-3 col-md-offset-1">

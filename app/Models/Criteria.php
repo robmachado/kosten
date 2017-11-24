@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Criteria extends Model
 {
+    use Values;
+    
     protected $table = 'criterias';
     
     protected $fillable = [
@@ -24,56 +26,56 @@ class Criteria extends Model
     
     public function setOperationalAttribute($value)
     {
-       $this->attributes['operational'] = str_replace(',', '.', $value);
+       $this->attributes['operational'] = Values::real($value);
     }
     
     public function setFinancialAttribute($value)
     {
-       $this->attributes['financial'] = str_replace(',', '.', $value);
+       $this->attributes['financial'] = Values::real($value);
     }
     
     public function setApportionmentAttribute($value)
     {
-       $this->attributes['apportionment'] = str_replace(',', '.', $value);
+       $this->attributes['apportionment'] = Values::real($value);
     }
     
     public function setProfitAttribute($value)
     {
-       $this->attributes['profit'] = str_replace(',', '.', $value)/100;
+       $this->attributes['profit'] = Values::percent($value);
     }
     
     public function setCommissionAttribute($value)
     {
-       $this->attributes['commission'] = str_replace(',', '.', $value)/100;
+       $this->attributes['commission'] = Values::percent($value);
     }
 
     public function setRateAttribute($value)
     {
-       $this->attributes['rate'] = str_replace(',', '.', $value)/100;
+       $this->attributes['rate'] = Values::percent($value);
     }
    
     public function setIpiAttribute($value)
     {
-       $this->attributes['ipi'] = str_replace(',', '.', $value)/100;
+       $this->attributes['ipi'] = Values::percent($value);
     }
     
     public function setPisAttribute($value)
     {
-       $this->attributes['pis'] = str_replace(',', '.', $value)/100;
+       $this->attributes['pis'] = Values::percent($value);
     }
     
     public function setCofinsAttribute($value)
     {
-       $this->attributes['cofins'] = str_replace(',', '.', $value)/100;
+       $this->attributes['cofins'] = Values::percent($value);
     }
 
     public function setCsllAttribute($value)
     {
-       $this->attributes['csll'] = str_replace(',', '.', $value)/100;
+       $this->attributes['csll'] = Values::percent($value);
     }
 
     public function setIrAttribute($value)
     {
-       $this->attributes['ir'] = str_replace(',', '.', $value)/100;
+       $this->attributes['ir'] = Values::percent($value);
     }
 }

@@ -6,12 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Destination extends Model
 {
+    use Values;
+    
     protected $table = 'destinations';
      
     protected $fillable = ['destination', 'icms'];
     
     public function setIcmsAttribute($value)
     {
-        $this->attributes['icms'] = str_replace(',', '.', $value)/100;
+        $this->attributes['icms'] = Values::percent($value);
     }
 }

@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class RawMaterial extends Model
 {
+    use Values;
+    
     protected $table = 'rawmaterials';
     
     protected $fillable = [
@@ -23,11 +25,11 @@ class RawMaterial extends Model
     
     public function setValueAttribute($value)
     {
-       $this->attributes['value'] = str_replace(',', '.', $value);
+       $this->attributes['value'] = Values::real($value);
     }
     
     public function setValueicmsAttribute($value)
     {
-       $this->attributes['valueicms'] = str_replace(',', '.', $value);
+       $this->attributes['valueicms'] = Values::real($value);
     }
 }

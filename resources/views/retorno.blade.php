@@ -37,12 +37,8 @@
             <input type="hidden" name="custoprod" id="custoprod" value="{{ $params['custoprod'] }}">
             <input type="hidden" name="markup" id="markup" value="{{ $params['markup'] }}">
             <div class="col-sm-4">
-                <label for="preco" class="control-label">Preço de Referência</label>
-                <input type="text" name="preco" id="preco" class="form-control" value="" placeholder="digite valor sugerido" onkeypress="return onEnter(event)">
-            </div>
-            <div class="col-sm-2">
-                <br/>
-                <button type="button" class="btn btn-success form-control" onclick="calc();">Calc</button> 
+                <label for="preco" class="control-label">Preço de Referência <i>(digite e tecle ENTER)</i></label>
+                <input type="text" name="preco" id="preco" class="form-control" value="" placeholder="digite valor sugerido e tecle ENTER" onkeypress="return onEnter(event)">
             </div>
             <div class="col-sm-4">
                 <label for="margem" class="control-label" id="lblMargem">Margem Real (%)</label>
