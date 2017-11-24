@@ -315,7 +315,10 @@ class AnaliseController extends Controller
         $std->profit = $criterios->profit;
         $std->markup = $markup;
         $std->custoTotal = $custoTotal;
-        $explain = $this->explain($std);
+        $explain = "";
+        if (\Auth::check()) {
+            $explain = $this->explain($std);
+        }
         
         $tab = [
            'artigo' => $artigo->article,
@@ -460,8 +463,10 @@ class AnaliseController extends Controller
             $std->profit = $criterios->profit;
             $std->markup = $markup;
             $std->custoTotal = $custoTotal;
-            $explain = $this->explain($std);
-            
+            $explain = "";
+            if (\Auth::check()) {
+                $explain = $this->explain($std);
+            }
             $tab[] = [
                 'artigo' => $artigo->article,
                 'descricao' => $artigo->description,
