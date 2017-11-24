@@ -17,4 +17,20 @@ trait Values
     {
         return (float) str_replace(',', '.', $value);
     }
+    
+    public static function inteiro($value)
+    {
+        $value = self::real($value);
+        return round($value, 0);
+    }
+    
+    public static function brnumber($value, $decimals = 2)
+    {
+        return number_format($value,$decimals,',','.');
+    }
+    
+    public static function brdata($value)
+    {
+        return (new \DateTime($value))->format('d/m/Y');
+    }
 }

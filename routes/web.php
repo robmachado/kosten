@@ -29,3 +29,4 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('/knittings', 'KnittingsController');
     Route::resource('/packagings', 'PackagingsController');
 });
+

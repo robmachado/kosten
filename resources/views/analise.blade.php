@@ -57,7 +57,7 @@
                         <label for="embalagem">Embalagem</label>
                         <select id="embalagem" name="embalagem" class="form-control">
                             @foreach($package as $key => $value)
-                            <option value="{{ $key }}" {{($value == 'SACO PLASTICO' ? 'selected': '')}}>{{ $value }}</option>
+                            <option value="{{ $key }}" {{($value == 'SACO_PLASTICO' ? 'selected': '')}}>{{ $value }}</option>
                             @endforeach       
                         </select>
                     </div>

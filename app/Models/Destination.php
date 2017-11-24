@@ -16,4 +16,9 @@ class Destination extends Model
     {
         $this->attributes['icms'] = Values::percent($value);
     }
+    
+    public function getIcmsFormattedAttribute()
+    {
+        return Values::brnumber($this->icms*100,2);
+    }
 }

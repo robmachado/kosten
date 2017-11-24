@@ -23,13 +23,13 @@
             <div class="form-group">
                 <label for="id" class="col-sm-3 control-label">Id</label>
                 <div class="col-sm-6">
-                    <input type="text" name="id" id="id" class="form-control" value="{{ $model['id'] or old('id') }}" readonly="readonly">
+                    <input type="text" name="id" id="id" class="form-control" value="{{ $model->id or old('id') }}" readonly="readonly">
                 </div>
             </div>
             <div class="form-group {{ $errors->has('class') ? 'has-error' : '' }}">
                 <label for="class" class="col-sm-3 control-label">Classificação</label>
                 <div class="col-sm-6">
-                    <input type="text" name="class" id="class" class="form-control" value="{{ $model['class'] or old('class') }}">
+                    <input type="text" name="class" id="class" class="form-control" value="{{ $model->class or old('class') }}">
                     @if($errors->has('class'))
                         <span class="help-block">{{ $errors->first('class') }}</span>
                     @endif
@@ -38,7 +38,7 @@
             <div class="form-group {{ $errors->has('value') ? 'has-error' : '' }}">
                 <label for="value" class="col-sm-3 control-label">Valor Custo (R$)</label>
                 <div class="col-sm-6">
-                    <input type="text" name="value" id="value" class="form-control" value="{{ $model['value'] or old('value') }}">
+                    <input type="text" name="value" id="value" class="form-control" value="{{ $model->value_formatted or old('value') }}">
                     @if($errors->has('value'))
                         <span class="help-block">{{ $errors->first('value') }}</span>
                     @endif

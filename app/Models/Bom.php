@@ -43,4 +43,24 @@ class Bom extends Model
     {
         $this->attributes['losses'] = Values::percent($value);
     }
+    
+    public function getLossesFormattedAttribute()
+    {
+        return Values::brnumber($this->losses*100,2);
+    }
+    
+    public function getPerc1FormattedAttribute()
+    {
+        return Values::brnumber($this->perc1*100,2);
+    }
+    
+    public function getPerc2FormattedAttribute()
+    {
+        return Values::brnumber($this->perc2*100,2);
+    }
+    
+    public function getPerc3FormattedAttribute()
+    {
+        return Values::brnumber($this->perc3*100,2);
+    }
 }
