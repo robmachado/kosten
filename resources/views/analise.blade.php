@@ -73,13 +73,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-3 col-md-offset-1">
-                    <div class="form-group">
-                        <div class="col-sm-offset-3 col-sm-6">
-                            <a class="btn btn-default" href="{{ route('home') }}"><i class="glyphicon glyphicon-chevron-left"></i> Voltar</a>
-                        </div>
-                    </div>
-                </div>
             </div>    
         </form>
     </div>
