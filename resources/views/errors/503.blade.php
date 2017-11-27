@@ -24,7 +24,8 @@
         .title {
             font-size: 50px;
             margin-bottom: 40px;
-        
+            color: darkred
+        }
     </style>
 </head>
 <body>
