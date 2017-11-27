@@ -44,6 +44,10 @@
                 <label for="margem" class="control-label" id="lblMargem">Margem Real (%)</label>
                 <input type="text" name="margem" id="margem" class="form-control" value="" readonly>
             </div>
+            <div class="col-sm-4">
+                <label for="desconto" class="control-label" id="lblMargem">Desonto (%)</label>
+                <input type="text" name="desconto" id="desconto" class="form-control" value="" readonly>
+            </div>
         </form>
     </div>    
 
@@ -64,10 +68,19 @@
     
     function calc() {
         var custoprod = document.getElementById('custoprod').value;
-        var markup = document.getElementById('markup').value - 0.1;
+        var markup = document.getElementById('markup').value;
         var preco = document.getElementById('preco').value;
+        var impostos = markup-0.1;
+        custoprod = Math.round(custoprod * 100) / 100
+        var tabela = custoprod/(1-markup);
+        var margem = 0;
+        var desconto = 0;
+        var valorliquido = 0;
+        tabela = Math.round(tabela * 100) / 100
         preco = preco.replace(",", ".");
-        margem = (preco * (1-markup) - custoprod)/preco * 100; 
+        valorliquido = preco * (1-impostos);
+        margem = (valorliquido - custoprod)/preco * 100; 
+        desconto = ((tabela-preco)/tabela) * 100;
         if (margem > 0) {
             document.getElementById('lblMargem').innerHTML = "Margem Real Real (%)"
             document.getElementById('lblMargem').style.color = lblC;
@@ -80,6 +93,7 @@
             document.getElementById("margem").style.fontSize = '24px';
         }
         document.getElementById('margem').value = margem.toFixed(2);
+        document.getElementById('desconto').value = desconto.toFixed(2);
     }
 </script>
 @endsection
