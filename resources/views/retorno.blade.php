@@ -34,18 +34,19 @@
     <br/>
     <div>
         <form>
-            <input type="hidden" name="custoprod" id="custoprod" value="{{ $params['custoprod'] }}">
+            <input type="hidden" name="custodireto" id="custodireto" value="{{ $params['custodireto'] }}">
+            <input type="hidden" name="custoindireto" id="custoindireto" value="{{ $params['custoindireto'] }}">
             <input type="hidden" name="markup" id="markup" value="{{ $params['markup'] }}">
-            <div class="col-sm-4">
-                <label for="preco" class="control-label">Preço de Referência <i>(digite e tecle ENTER)</i></label>
-                <input type="text" name="preco" id="preco" class="form-control" value="" placeholder="digite valor sugerido e tecle ENTER" onkeypress="return onEnter(event)">
+            <div class="col-sm-3">
+                <label for="preco" class="control-label">Preço de Referência</label>
+                <input type="text" name="preco" id="preco" class="form-control" value="" placeholder="valor sugerido e ENTER" onkeypress="return onEnter(event)">
             </div>
-            <div class="col-sm-4">
-                <label for="margem" class="control-label" id="lblMargem">Margem Real (%)</label>
+            <div class="col-sm-3">
+                <label for="margem" class="control-label" id="lblMargem">Margem Real(%)</label>
                 <input type="text" name="margem" id="margem" class="form-control" value="" readonly>
             </div>
-            <div class="col-sm-4">
-                <label for="desconto" class="control-label" id="lblMargem">Desonto (%)</label>
+            <div class="col-sm-3">
+                <label for="desconto" class="control-label" id="lblDesconto">Desconto (%)</label>
                 <input type="text" name="desconto" id="desconto" class="form-control" value="" readonly>
             </div>
         </form>
@@ -67,11 +68,15 @@
     }
     
     function calc() {
-        var custoprod = document.getElementById('custoprod').value;
+        var custodireto = document.getElementById('custodireto').value;
+        var custoindireto = document.getElementById('custoindireto').value;
         var markup = document.getElementById('markup').value;
         var preco = document.getElementById('preco').value;
         var impostos = markup-0.1;
-        custoprod = Math.round(custoprod * 100) / 100
+        var custoprod = 0;
+        custodireto = Math.round(custodireto * 100) / 100;
+        custoindireto = Math.round(custoindireto * 100) / 100;
+        custoprod = custodireto+custoindireto;
         var tabela = custoprod/(1-markup);
         var margem = 0;
         var desconto = 0;
@@ -79,15 +84,15 @@
         tabela = Math.round(tabela * 100) / 100
         preco = preco.replace(",", ".");
         valorliquido = preco * (1-impostos);
-        margem = (valorliquido - custoprod)/preco * 100; 
+        margem = (valorliquido-custoprod)/preco * 100; 
         desconto = ((tabela-preco)/tabela) * 100;
         if (margem > 0) {
-            document.getElementById('lblMargem').innerHTML = "Margem Real Real (%)"
+            document.getElementById('lblMargem').innerHTML = "Margem Resultado(%)"
             document.getElementById('lblMargem').style.color = lblC;
             document.getElementById("margem").style.color = 'blue';
             document.getElementById("margem").style.fontSize = fntS;
         } else {
-            document.getElementById('lblMargem').innerHTML = "Prejuizo Real (%)"
+            document.getElementById('lblMargem').innerHTML = "Prejuizo Resultado(%)"
             document.getElementById('lblMargem').style.color = 'red';
             document.getElementById("margem").style.color = 'red';
             document.getElementById("margem").style.fontSize = '24px';

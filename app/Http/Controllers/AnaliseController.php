@@ -335,7 +335,8 @@ class AnaliseController extends Controller
             'tingimento'=> $tingimento->class,
             'icms'=> $destino->icms,
             'markup' => $markup,
-            'custoprod' => $custoDiretoTotal+$custoIndireto,
+            'custoindireto' => $custoIndireto,
+            'custodireto' => $custoDiretoTotal,
             'embalagem' => $pack->pack
         ];
         return View::make('retorno',compact(['params','tab']));
