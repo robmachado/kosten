@@ -15,9 +15,9 @@ class PackagingsSeeder extends Seeder
         $q1 = (float) 1/15;// 15 kg peso médio por peça
         $q2 = (float) 1/20;// 20 kg por caixa
         $packs = [
-            ['pack' =>'FARDO','description'=>'Fardo de Pano + saco plástico','value'=> 11.50, 'quota'=>$q1],
-            ['pack' =>'CAIXA','description'=>'Caixa de papelão','value'=> 14.35, 'quota'=>$q2],
-            ['pack' =>'SACO_PLASTICO','description'=>'Saco de Plastico transparente','value'=> 2.21, 'quota'=>$q1]
+            ['pack' =>'FARDO','description'=>'Fardo de Pano + saco plástico + tubete + etiqueta + fita','value'=> 11.50, 'quota'=>$q1],
+            ['pack' =>'CAIXA','description'=>'Caixa de papelão + etiqueta + fita','value'=> 14.35, 'quota'=>$q2],
+            ['pack' =>'SACO_PLASTICO','description'=>'Saco de Plastico transparente + tubete + etiqueta + fita','value'=> 2.21, 'quota'=>$q1]
         ];
         Packaging::truncate();
         foreach ($packs as $pack) {

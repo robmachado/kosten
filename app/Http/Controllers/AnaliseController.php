@@ -56,7 +56,7 @@ class AnaliseController extends Controller
             </table>
             <h3>Custos Diretos</h3>
             <br/>
-                <p><strong>Custo das Materias-primas(Fios)</strong></p>
+                <p><strong>Custo das Materias-primas (Fios)  (sem PIS/COFINS)</strong></p>
                 <table>
                     <tbody>
                         <tr>
@@ -74,7 +74,7 @@ class AnaliseController extends Controller
                     </tbody>
                 </table>
                 <br/>
-                <p><strong>Custo de Malharia</strong></p>
+                <p><strong>Custo de Malharia (sem PIS/COFINS)</strong></p>
                 <table>
                     <tbody>
                         <tr>
@@ -86,7 +86,7 @@ class AnaliseController extends Controller
                     <tbody>
                 </table>
                 <br/>
-                <p><strong>Custo Tinturaria</strong></p>
+                <p><strong>Custo Tinturaria (sem PIS/COFINS)</strong></p>
                 <table>
                     <tbody>
                         <tr>
@@ -98,7 +98,7 @@ class AnaliseController extends Controller
                     <tbody>
                 </table>
                 <br/>
-                <p><strong>Custo de Embalagem</strong></p>
+                <p><strong>Custo de Embalagem (sem PI/COFINS)</strong></p>
                 <table>
                     <tbody>
                         <tr>
@@ -254,8 +254,11 @@ class AnaliseController extends Controller
         }
         
         $custoMalha = ($custoMP + $malharia->price)/0.99; //1% de perda
-        
-        $custoDireto = ($custoMalha + $tingimento->value) / (1-$artigo->losses);
+        $losses = $artigo->losses;
+        if ($tingimento->value == 0) {
+            $losses = 0;
+        }
+        $custoDireto = ($custoMalha + $tingimento->value) / (1-$losses);
         $custoEmbalagem = $pack->value * $pack->quota;
         $custoDiretoTotal =  $custoDireto + $custoEmbalagem;
         
@@ -297,7 +300,7 @@ class AnaliseController extends Controller
         $std->custoMalha = $custoMalha;
         $std->class = $tingimento->class;
         $std->value = $tingimento->value;
-        $std->losses = $artigo->losses;
+        $std->losses = $losses;
         $std->custoDireto = $custoDireto;
         $std->pack = $pack->pack;
         $std->packvalue = $pack->value;
@@ -403,7 +406,11 @@ class AnaliseController extends Controller
             }
                         
             $custoMalha = (float) ($custoMP + $malharia->price)/0.99; //1% de perda
-            $custoDireto = (float) ($custoMalha + $tingimento->value) / (1-$artigo->losses);
+            $losses = $artigo->losses;
+            if ($tingimento->value == 0) {
+                $losses = 0;
+            }
+            $custoDireto = (float) ($custoMalha + $tingimento->value) / (1-$losses);
             $custoEmbalagem = $pack->value * $pack->quota;
             $custoDiretoTotal =  $custoDireto + $custoEmbalagem;
             
@@ -445,7 +452,7 @@ class AnaliseController extends Controller
             $std->custoMalha = $custoMalha;
             $std->class = $tingimento->class;
             $std->value = $tingimento->value;
-            $std->losses = $artigo->losses;
+            $std->losses = $losses;
             $std->custoDireto = $custoDireto;
             $std->pack = $pack->pack;
             $std->packvalue = $pack->value;
@@ -534,5 +541,14 @@ class AnaliseController extends Controller
         $tmp = str_replace('{{ complementar }}',number_format((1-$std->markup)*100, 2, ',', '.'),$tmp);
         $tmp = str_replace('{{ final }}',number_format($std->custoTotal, 2, ',', '.'),$tmp);
         return $tmp;    
+    }
+    
+    public function mpall()
+    {
+        //retornar custos diretos de fabricação para todos os produtos, com e sem ICMS nos FIOS
+        //fios + malharia + tinturaria + embalagem
+        //cod
+        //mpcom
+        //mpsem
     }
 }
