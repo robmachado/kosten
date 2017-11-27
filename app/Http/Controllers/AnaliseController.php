@@ -550,5 +550,64 @@ class AnaliseController extends Controller
         //cod
         //mpcom
         //mpsem
+        $tingimento = Dyeing::findOrFail(1);
+        $criterios = Criteria::findOrFail(1);
+        $pack = Packaging::findOrFail(3);
+        $artigos = Bom::all();
+        $resp = [];
+        foreach ($artigos as $artigo) {
+            $malharia = Knitting::where('cod','=', $artigo->knittings_cod)->firstOrFail();
+            //$raw1 = RawMaterial::where('reference','=', $artigo->raw1)->firstOrFail();
+            try {
+                $raw1 = RawMaterial::where('reference','=', $artigo->raw1)->firstOrFail();
+            } catch (\Exception $e) {
+                
+            }
+            $raw2 = new \stdClass();
+            $raw2->value = 0;
+            $raw2->valueicms = 0;
+            $raw3 = new \stdClass();
+            $raw3->value = 0;
+            $raw3->valueicms = 0;
+            if (!empty($artigo->raw2)) {
+                try {
+                    $raw2 = RawMaterial::where('reference','=', $artigo->raw2)->firstOrFail();
+                } catch (\Exception $e) {
+                    
+                }
+            }
+            if (!empty($artigo->raw3)) {
+                try {
+                    $raw3 = RawMaterial::where('reference','=', $artigo->raw3)->firstOrFail();
+                } catch (\Exception $e) {
+                    
+                }
+            }
+            //venda SP, usar os custos com ICMS
+            $custoMPcom = (float) $artigo->perc1 * $raw1->valueicms
+                + $artigo->perc2 * $raw2->valueicms
+                + $artigo->perc3 * $raw3->valueicms;
+            
+            //venda !SP, usar os custos sem ICMS
+            $custoMPsem = (float) $artigo->perc1 * $raw1->value
+                + $artigo->perc2 * $raw2->value
+                + $artigo->perc3 * $raw3->value;
+                        
+            $custoMalhacom = (float) ($custoMPcom + $malharia->price)/0.99; //1% de perda
+            $custoMalhasem = (float) ($custoMPsem + $malharia->price)/0.99; //1% de perda
+            
+            $custoDiretocom = (float) ($custoMalhacom + $tingimento->value) / (1-$tingimento->losses);
+            $custoDiretosem = (float) ($custoMalhasem + $tingimento->value) / (1-$tingimento->losses);
+            
+            $custoEmbalagem = $pack->value * $pack->quota;
+            $custoDiretoTotalcom =  $custoDiretocom + $custoEmbalagem;
+            $custoDiretoTotalsem =  $custoDiretosem + $custoEmbalagem;
+            $resp[] = [
+                'cod' => substr($artigo->article,0,4),
+                'mpcom' => $custoDiretoTotalcom,
+                'mpsem' => $custoDiretoTotalsem
+            ];
+        }
+        return $resp;
     }
 }
