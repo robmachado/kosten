@@ -18,7 +18,7 @@
                 <tr>
                     <th>Id</th>
                     <th>Destinos</th>
-                    <th>Valor de Icms</th>
+                    <th>Valor de Icms (saída)</th>
                     <th style="width:50px"></th>
                     <th style="width:50px"></th>
                 </tr>
