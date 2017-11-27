@@ -57,11 +57,12 @@ class RawMaterialsSeeder extends Seeder
             ['reference'=>'PES1X75/36T/URDUME','value'=>'7.05','valueicms'=>'7.38','provider_cod'=>'','description'=>'Poliester','basecomponent'=>'PES','cables'=>'1','dtex'=>'75','filaments'=>'36','finishing'=>'Texturizado URDUME']
         ];
         RawMaterial::truncate();
+        $piscofinscomplement = 0.9075;
         foreach ($raws as $raw) {
             $ra = new RawMaterial();
             $ra->reference = $raw['reference'];
-            $ra->value = $raw['value'];
-            $ra->valueicms = $raw['valueicms'];
+            $ra->value = $raw['value']*$piscofinscomplement;
+            $ra->valueicms = $raw['valueicms']*$piscofinscomplement;
             $ra->provider_cod = $raw['provider_cod'];
             $ra->description = trim($raw['description']);
             $ra->basecomponent = $raw['basecomponent'];

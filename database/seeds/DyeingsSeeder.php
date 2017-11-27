@@ -20,10 +20,11 @@ class DyeingsSeeder extends Seeder
             ['class' =>'ESPECIAL', 'value'=> '11.2']
         ];
         Dyeing::truncate();
+        $piscofinscomplement = 0.9075;
         foreach ($dyes as $dye) {
             $dy = new Dyeing();
             $dy->class = $dye['class'];
-            $dy->value = $dye['value'];
+            $dy->value = $dye['value']*$piscofinscomplement;
             $dy->save();
         }
     }
