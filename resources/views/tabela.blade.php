@@ -4,7 +4,7 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <p>Parâmetros</p>
-        <p>{{ $params['destino'] }}  <strong>{{ 'ICMS: ' . number_format($params['icms'],0,'','') }}% </strong> Tingimento: <strong>{{ $params['tingimento'] }}</strong> Embalagem: <strong>{{ $params['embalagem'] }}</strong></p>    
+        <p><strong>FOB</strong> (gde SP) {{ $params['destino'] }}  <strong>{{ 'ICMS: ' . number_format($params['icms'],0,'','') }}% </strong> Tingimento: <strong>{{ $params['tingimento'] }}</strong> Embalagem: <strong>{{ $params['embalagem'] }}</strong></p>    
     </div>
     <div class="panel-body">
         <div class="">
