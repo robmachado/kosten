@@ -34,7 +34,9 @@
                         <td>R$ {{ number_format($value['custo'][45],2,',','') }}</td>
                         <td>R$ {{ number_format($value['custo'][60],2,',','') }}</td>
                         <td>
+                            @if (Auth::check())
                             <i class="fa fa-pencil-square-o" aria-hidden="true" style="color:#3978A7" data-toggle="modal" data-target="#{{ $value['artigo'] }}"></i>
+                            @endif
                         </td>
                     <tr>  
                     @endforeach  
