@@ -551,11 +551,17 @@ class AnaliseController extends Controller
         //cod
         //mpcom
         //mpsem
+        $tings = Dyeing::all();
         $tingimento = Dyeing::findOrFail(1);
         $criterios = Criteria::findOrFail(1);
         $pack = Packaging::findOrFail(3);
         $artigos = Bom::all();
         $resp = [];
+        $tg = [];
+        foreach ($tings as $t) {
+            $tg[$t->class] = $t->value;
+        }
+        
         foreach ($artigos as $artigo) {
             $malharia = Knitting::where('cod','=', $artigo->knittings_cod)->firstOrFail();
             //$raw1 = RawMaterial::where('reference','=', $artigo->raw1)->firstOrFail();
@@ -597,16 +603,25 @@ class AnaliseController extends Controller
             $custoMalhacom = (float) ($custoMPcom + $malharia->price)/0.99; //1% de perda
             $custoMalhasem = (float) ($custoMPsem + $malharia->price)/0.99; //1% de perda
             
-            $custoDiretocom = (float) ($custoMalhacom + $tingimento->value) / (1-$tingimento->losses);
-            $custoDiretosem = (float) ($custoMalhasem + $tingimento->value) / (1-$tingimento->losses);
-            
+            $custoDiretocom = (float) ($custoMalhacom + $tingimento->value) / (1-$artigo->losses);
+            $custoDiretosem = (float) ($custoMalhasem + $tingimento->value) / (1-$artigo->losses);
             $custoEmbalagem = $pack->value * $pack->quota;
             $custoDiretoTotalcom =  $custoDiretocom + $custoEmbalagem;
             $custoDiretoTotalsem =  $custoDiretosem + $custoEmbalagem;
             $resp[] = [
                 'cod' => substr($artigo->article,0,4),
+                'crawcom' => $custoMPcom,
+                'crawsem' => $custoMPsem,
+                'malha' => (float) $malharia->price,
+                'perda' => 0.01,
+                'cmalhcom' =>$custoMalhacom,
+                'cmalhsem' =>$custoMalhasem,
+                'cembalagem' => $custoEmbalagem,
+                'ctint' => (float) $tingimento->value,
+                'perdatint' => (float) $artigo->losses,
                 'mpcom' => $custoDiretoTotalcom,
-                'mpsem' => $custoDiretoTotalsem
+                'mpsem' => $custoDiretoTotalsem,
+                'tg' => $tg
             ];
         }
         return $resp;
