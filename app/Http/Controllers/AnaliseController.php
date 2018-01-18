@@ -427,12 +427,13 @@ class AnaliseController extends Controller
             $custoTotal = ($custoDiretoTotal+$custoIndireto)/(1-$markup);
 
             $custo = [];
+
             foreach ($pgtos as $pgto) {
-                $juros = (1 + $criterios->financial_rate)**($pgto/30);
+                $juros = (1 + $criterios->rate)**($pgto/30);
                 $custoFinal = (float) $custoTotal * $juros;
                 $custo[$pgto] = round($custoFinal, 2);
             }
-            
+
             $std = new \stdClass();
             $std->article = $artigo->article;
             $std->operational = $criterios->operational;
