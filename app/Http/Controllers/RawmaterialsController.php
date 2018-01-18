@@ -41,6 +41,13 @@ class RawmaterialsController extends Controller
         ]);
     }
 
+    public function overprice()
+    {
+        return view('rawmaterials.overprice', [
+            []
+        ]);
+    }
+    
     public function update(RawmaterialRequest $request)
     {
 	$rawmaterial = null;
