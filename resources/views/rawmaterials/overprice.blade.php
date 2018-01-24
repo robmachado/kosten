@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<h2 class="page-header">Fios</h2>
+<h2 class="page-header">Fios Ajuste de Valores</h2>
 <div class="panel panel-default">
     <div class="panel-heading">
         Altera em LOTE o preço dos Fios (use com CUIDADO)
@@ -15,60 +15,36 @@
     </div>
     @endif
     <div class="panel-body">
-        <form action="{{ url('/rawmaterials'.( isset($model) ? "/" . $model->id : "")) }}" method="POST" class="form-horizontal">
+        <form action="{{ url('/rawmaterials/overprice') }}" method="POST" class="form-horizontal">
             {{ csrf_field() }}
             @if (isset($model))
                 <input type="hidden" name="_method" value="PATCH">
             @endif
-            <div class="form-group {{ $errors->has('basecomponent') ? 'has-error' : '' }}">
-                <label for="basecomponent" class="col-sm-3 control-label">Componente Base</label>
-                <div class="col-sm-6">
-                    <input type="text" name="basecomponent" id="basecomponent" class="form-control" value="{{ $model->basecomponent or old('basecomponent') }}">
-                    @if($errors->has('basecomponent'))
-                        <span class="help-block">{{ $errors->first('basecomponent') }}</span>
-                    @endif
-                </div>
-            </div>
-            <div class="form-group {{ $errors->has('cables') ? 'has-error' : '' }}">
-                <label for="cables" class="col-sm-3 control-label">Cabos</label>
+            <div class="form-group">
+                <label for="basecom" class="col-sm-3 control-label">Componente</label>
                 <div class="col-sm-2">
-                    <input type="number" name="cables" id="cables" class="form-control" value="{{ $model->cables or old('cables') }}">
-                    @if($errors->has('cables'))
-                        <span class="help-block">{{ $errors->first('cables') }}</span>
-                    @endif
+                <select id="basecom" name="basecom" class="form-control" >
+                    @foreach($baselist as $key => $value)
+                        <option value="{{ $value }}">{{ $value }}</option>
+                    @endforeach
+                </select>
                 </div>
             </div>
-            <div class="form-group {{ $errors->has('dtex') ? 'has-error' : '' }}">
-                <label for="dtex" class="col-sm-3 control-label">Dtex</label>
+            <div class="form-group {{ $errors->has('percent') ? 'has-error' : '' }}">
+                <label for="finishing" class="col-sm-3 control-label">Adicionar Percentual</label>
                 <div class="col-sm-2">
-                    <input type="number" name="dtex" id="dtex" class="form-control" value="{{ $model->dtex or old('dtex') }}">
-                    @if($errors->has('dtex'))
-                        <span class="help-block">{{ $errors->first('dtex') }}</span>
+                    <input type="float" name="percent" id="percent" class="form-control" value="">
+                    @if($errors->has('percent'))
+                        <span class="help-block">{{ $errors->first('percent') }}</span>
                     @endif
+                    
                 </div>
-            </div>
-            <div class="form-group {{ $errors->has('filaments') ? 'has-error' : '' }}">
-                <label for="filaments" class="col-sm-3 control-label">Filamentos</label>
-                <div class="col-sm-2">
-                    <input type="number" name="filaments" id="filaments" class="form-control" value="{{ $model->filaments or old('filaments') }}">
-                    @if($errors->has('filaments'))
-                        <span class="help-block">{{ $errors->first('filaments') }}</span>
-                    @endif
-                </div>
-            </div>
-            <div class="form-group {{ $errors->has('finishing') ? 'has-error' : '' }}">
-                <label for="finishing" class="col-sm-3 control-label">Acabamento</label>
-                <div class="col-sm-6">
-                    <input type="text" name="finishing" id="finishing" class="form-control" value="{{ $model->finishing or old('finishing') }}">
-                    @if($errors->has('finishing'))
-                        <span class="help-block">{{ $errors->first('finishing') }}</span>
-                    @endif
-                </div>
+                <i>Ex. use numeros maiores que 1 para adicionar e menores que 1 para reduzir. 1,20 irá adicionar 20% ao valor e 0,80 ira tirar 20% do valor.</i>
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-3 col-sm-6">
                     <button type="submit" class="btn btn-success">
-                        <i class="fa fa-plus"></i> Gravar
+                        <i class="fa fa-plus"></i> Aplicar
                     </button> 
                     <a class="btn btn-default" href="{{ url('/rawmaterials') }}"><i class="glyphicon glyphicon-chevron-left"></i> Retornar</a>
                 </div>

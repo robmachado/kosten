@@ -43,9 +43,16 @@ class RawmaterialsController extends Controller
 
     public function overprice(Request $request)
     {
-        return view('rawmaterials.overprice', [
-            []
-        ]);
+        if(!$request->has('_token')) {
+            $baselist = DB::table('rawmaterials')->select('basecomponent')->distinct()->orderBy('basecomponent')->pluck('basecomponent');
+            return View::make('rawmaterials.overprice', compact(['baselist']));
+        }
+        $perc = (float) str_replace(',', '.', $request->percent);
+        if ($perc > 0 && $perc < 2) {
+            $sqlComm = "UPDATE rawmaterials SET value=value*" . $perc . ", valueicms=valueicms*" . $perc . " WHERE basecomponent='" . $request->basecom . "';";
+            DB::statement($sqlComm);
+        }
+        return redirect()->route('rawmaterials.index');
     }
     
     public function update(RawmaterialRequest $request)
