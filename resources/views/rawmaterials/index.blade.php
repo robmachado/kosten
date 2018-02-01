@@ -27,6 +27,7 @@
                     <th>Dtex</th>
                     <th>Filamentos</th>
                     <th>Acabamento</th>
+                    <th>Atualizado</th>
                     <th style="width:50px"></th>
                     <th style="width:50px"></th>
                 </tr>
@@ -49,6 +50,7 @@
                     <td>{{ $value->dtex }}</td>
                     <td>{{ $value->filaments }}</td>
                     <td>{{ $value->finishing }}</td>
+                    <td>{{ $value->updated_at }}</td>
                     <td><a href="{{ url('rawmaterials') }}/{{ $value->id }}/edit"><i class="fa fa-pencil-square-o" aria-hidden="true" style="color:#3978A7"></i></a></td>
                     <td>
                         {!! Btn::delete($value->id, $value->reference)!!}

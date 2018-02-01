@@ -35,20 +35,31 @@
                     @endif
                 </div>
             </div>
+            <div class="form-group">
+                <label for="inteiro" class="col-sm-3 control-label">Valor Integral</label>
+                <div class="col-sm-6">
+                    <input type="number" step="0.001" name="inteiro" id="inteiro" class="form-control" value="" >
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="icms" class="col-sm-3 control-label">% ICMS</label>
+                <div class="col-sm-6">
+                    <input type="number" step="0.001" name="icms" id="icms" class="form-control" value="">
+                </div>
+            </div>            
             <div class="form-group {{ $errors->has('value') ? 'has-error' : '' }}">
                 <label for="value" class="col-sm-3 control-label">Valor Sem ICMS</label>
                 <div class="col-sm-6">
-                    <input type="text" name="value" id="value" class="form-control" value="{{ $model->value_formatted or old('value') }}">
+                    <input type="number" step="0.0001" name="value" id="value" class="form-control" value="{{ $model->value or old('value') }}">
                     @if($errors->has('value'))
                         <span class="help-block">{{ $errors->first('value') }}</span>
                     @endif
-
                 </div>
             </div>
             <div class="form-group {{ $errors->has('valueicms') ? 'has-error' : '' }}">
                 <label for="valueicms" class="col-sm-3 control-label">Valor Com ICMS</label>
                 <div class="col-sm-6">
-                    <input type="text" name="valueicms" id="valueicms" class="form-control" value="{{ $model->valueicms_formatted or old('valueicms') }}">
+                    <input type="number" step="0.0001" name="valueicms" id="valueicms" class="form-control" value="{{ $model->valueicms or old('valueicms') }}">
                     @if($errors->has('valueicms'))
                         <span class="help-block">{{ $errors->first('valueicms') }}</span>
                     @endif

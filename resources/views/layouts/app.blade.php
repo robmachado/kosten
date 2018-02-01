@@ -86,7 +86,27 @@
                 $(this).remove(); 
             });
         }, 2000);
-    });
+        
+        $('#inteiro').focusout(function() {
+            var icms = $('#icms').val()/100;
+            calc($('#inteiro').val(), icms);
+        });
+        $('#icms').focusout(function() {
+            var icms = $('#icms').val()/100;
+            calc($('#inteiro').val(), icms);
+        });
+        
+        });
+        
+        var calc = function(int, icms) {
+            if (int > 0 && icms > 0) {
+                var com = int - (int * 0.0925);
+                var sem = com - (int * icms);
+                //alert(com);
+                $('#valueicms').val(com.toFixed(4));
+                $('#value').val(sem.toFixed(4));
+            }    
+        }
     </script>
     @yield('page-scripts')
 </body>

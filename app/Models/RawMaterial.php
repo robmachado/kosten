@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class RawMaterial extends Model
 {
@@ -46,5 +47,10 @@ class RawMaterial extends Model
     public function getValueicmsFormattedAttribute()
     {
         return Values::brnumber($this->valueicms, 2);
+    }
+    
+    public function getUpdatedAtAttribute($date)
+    {
+        return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d/m/Y');
     }
 }
