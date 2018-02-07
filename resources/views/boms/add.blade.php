@@ -3,7 +3,11 @@
 <h2 class="page-header">Produtos</h2>
 <div class="panel panel-default">
     <div class="panel-heading">
-        Adiciona/Modifica Lista de Materiais dos Produtos (Bom)
+        @if (!isset($model))
+        Adiciona Produto à Lista de Materiais dos Produtos (Bom)
+        @else
+        Modifica da Lista de Materiais dos Produtos (Bom)
+        @endif
     </div>
     @if ($errors->any())
     <div class="alert alert-danger">
@@ -57,19 +61,42 @@
             <div class="form-group {{ $errors->has('knittings_cod') ? 'has-error' : '' }}">
                 <label for="knittings_cod" class="col-sm-3 control-label">Malharia</label>
                 <div class="col-sm-6">
+                    <select id="knittings_cod" name="knittings_cod" class="form-control">
+                        @foreach($knits as $key => $value)
+                        @if (!empty($model))
+                        <option value="{{ $value }}" {{($value == $model->knittings_cod ? 'selected': '')}}>{{ $value }}</option>
+                        @else
+                        <option value="{{ $value }}">{{ $value }}</option>
+                        @endif
+                        @endforeach
+                    </select>   
+                    <!---
                     <input type="text" name="knittings_cod" id="knittings_cod" class="form-control" value="{{ $model->knittings_cod or old('knittings_cod') }}">
                     @if($errors->has('knittings_cod'))
                         <span class="help-block">{{ $errors->first('knittings_cod') }}</span>
                     @endif
+                    --->
                 </div>
             </div>
             <div class="form-group {{ $errors->has('raw1') ? 'has-error' : '' }}">
                 <label for="raw1" class="col-sm-3 control-label">MP (FIO) 1</label>
                 <div class="col-sm-6">
+                    <select id="raw1" name="raw1" class="form-control">
+                        <option value=""></option>
+                        @foreach($raws as $key => $value)
+                        @if (!empty($model))
+                        <option value="{{ $value }}" {{($value == $model->raw1 ? 'selected': '')}}>{{ $value }}</option>
+                        @else
+                        <option value="{{ $value }}">{{ $value }}</option>
+                        @endif
+                        @endforeach
+                    </select>    
+                    <!---
                     <input type="text" name="raw1" id="raw1" class="form-control" value="{{ $model->raw1 or old('raw1') }}">
                     @if($errors->has('raw1'))
                         <span class="help-block">{{ $errors->first('raw1') }}</span>
                     @endif
+                    --->
                 </div>
             </div>
             <div class="form-group {{ $errors->has('perc1') ? 'has-error' : '' }}">
@@ -84,10 +111,22 @@
             <div class="form-group {{ $errors->has('raw2') ? 'has-error' : '' }}">
                 <label for="raw2" class="col-sm-3 control-label">MP (FIO) 2</label>
                 <div class="col-sm-6">
+                    <select id="raw2" name="raw2" class="form-control">
+                        <option value=""></option>
+                        @foreach($raws as $key => $value)
+                        @if (!empty($model))
+                        <option value="{{ $value }}" {{($value == $model->raw2 ? 'selected': '')}}>{{ $value }}</option>
+                        @else
+                        <option value="{{ $value }}">{{ $value }}</option>
+                        @endif
+                        @endforeach       
+                    </select>                        
+                    <!---
                     <input type="text" name="raw2" id="raw2" class="form-control" value="{{ $model->raw2 or old('raw2') }}">
                     @if($errors->has('raw2'))
                         <span class="help-block">{{ $errors->first('raw2') }}</span>
                     @endif
+                    --->
                 </div>
             </div>
             <div class="form-group {{ $errors->has('perc2') ? 'has-error' : '' }}">
@@ -102,10 +141,22 @@
             <div class="form-group {{ $errors->has('raw3') ? 'has-error' : '' }}">
                 <label for="raw3" class="col-sm-3 control-label">MP (FIO) 3</label>
                 <div class="col-sm-6">
+                    <select id="raw3" name="raw3" class="form-control">
+                        <option value=""></option>
+                        @foreach($raws as $key => $value)
+                        @if (!empty($model))
+                        <option value="{{ $value }}" {{($value == $model->raw3 ? 'selected': '')}}>{{ $value }}</option>
+                        @else
+                        <option value="{{ $value }}">{{ $value }}</option>
+                        @endif
+                        @endforeach
+                    </select>
+                    <!---
                     <input type="text" name="raw3" id="raw3" class="form-control" value="{{ $model->raw3 or old('raw3') }}">
                     @if($errors->has('raw3'))
                         <span class="help-block">{{ $errors->first('raw3') }}</span>
                     @endif
+                    --->
                 </div>
             </div>
             <div class="form-group {{ $errors->has('perc3') ? 'has-error' : '' }}">

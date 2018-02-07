@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Bom;
+use App\Models\RawMaterial;
 use App\Http\Requests\BomRequest;
 use Illuminate\Support\Facades\View;
 use DB;
@@ -21,16 +22,20 @@ class BomsController extends Controller
 
     public function create(Request $request)
     {
+        $raws = DB::table('rawmaterials')->select('id','reference')->orderBy('reference')->pluck('reference', 'id');
+        $knits = DB::table('knittings')->select('id','cod')->orderBy('cod')->pluck('cod', 'id');
         return view('boms.add', [
-            []
+            '' => [], 'raws' => $raws,'knits' => $knits
         ]);
     }
 
     public function edit(Request $request, $id)
     {
+        $raws = DB::table('rawmaterials')->select('id','reference')->orderBy('reference')->pluck('reference', 'id');
+        $knits = DB::table('knittings')->select('id','cod')->orderBy('cod')->pluck('cod', 'id');
 	$bom = Bom::findOrFail($id);
         return view('boms.add', [
-            'model' => $bom
+            'model' => $bom, 'raws' => $raws, 'knits' => $knits
         ]);
     }
 
@@ -50,6 +55,10 @@ class BomsController extends Controller
         } else {
             $bom = new Bom;
 	}
+        $p = $request->perc1+$request->perc2+$request->perc3;
+        if ($p !== 100) {
+            return redirect()->back()->withErrors(['As quantidades não correspondem a 100%, verifique as percentagens usadas.']);
+        }
         $bom->id = $request->id?:0;
 	$bom->article = $request->article;
 	$bom->description = $request->description;
