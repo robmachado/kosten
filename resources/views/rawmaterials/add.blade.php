@@ -35,16 +35,22 @@
                     @endif
                 </div>
             </div>
-            <div class="form-group">
-                <label for="inteiro" class="col-sm-3 control-label">Valor Integral</label>
+            <div class="form-group {{ $errors->has('valueorigin') ? 'has-error' : '' }}">
+                <label for="valueorigin" class="col-sm-3 control-label">Valor Integral</label>
                 <div class="col-sm-6">
-                    <input type="number" step="0.001" name="inteiro" id="inteiro" class="form-control" value="" >
+                    <input type="number" step="0.001" name="valueorigin" id="valueorigin" class="form-control" value="{{ $model->valueorigin or old('valueorigin') }}" >
+                    @if($errors->has('valueorigin'))
+                        <span class="help-block">{{ $errors->first('valueorigin') }}</span>
+                    @endif
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group {{ $errors->has('icms') ? 'has-error' : '' }}">
                 <label for="icms" class="col-sm-3 control-label">% ICMS</label>
                 <div class="col-sm-6">
-                    <input type="number" step="0.001" name="icms" id="icms" class="form-control" value="">
+                    <input type="number" step="0.001" name="icms" id="icms" class="form-control" value="{{ $model->icms or old('icms') }}">
+                    @if($errors->has('valueorigin'))
+                        <span class="help-block">{{ $errors->first('icms') }}</span>
+                    @endif
                 </div>
             </div>            
             <div class="form-group {{ $errors->has('value') ? 'has-error' : '' }}">

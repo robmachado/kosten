@@ -193,7 +193,7 @@ class AnaliseController extends Controller
     {
         $dyes = DB::table('dyeings')->select('id','class')->orderBy('class')->pluck('class', 'id');
         $destinos = DB::table('destinations')->select('id','destination')->orderBy('id')->pluck('destination', 'id');
-        $artigos = DB::table('boms')->select('id','article')->orderBy('article')->pluck('article', 'id');
+        $artigos = DB::table('boms')->select('id','article', 'description')->orderBy('article')->get();//->pluck('article','id');
         $package = DB::table('packagings')->select('id','pack')->orderBy('pack')->pluck('pack', 'id');
         return View::make('analise',compact(['dyes', 'destinos', 'artigos', 'package']));
     }

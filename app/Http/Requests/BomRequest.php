@@ -24,7 +24,7 @@ class BomRequest extends FormRequest
     public function rules()
     {
         return [
-            'article'=>'required|min:4|max:10|unique:boms,article,'.$this->id,
+            'article'=>'required|regex:/^[0-9]{4}/|min:4|max:4|unique:boms,article,'.$this->id,
             'description'=>'required|min:4|max:255',
             'composition'=>'required|min:4|max:255',
             'knittings_cod'=>'required|exists:knittings,cod',
@@ -43,7 +43,8 @@ class BomRequest extends FormRequest
         return [
             'article.required'=>'O codigo do artigo é necessário.',
             'article.min'=>'Use pelo menos quatro caracteres.',
-            'article.max'=>'No máximo coloque 10 caracteres',
+            'article.max'=>'No máximo coloque 4 caracteres',
+            'article.regex' => 'Use apenas numeros.',
             'article.unique'=>'A artigo deve ser único,'. $this->article .' já existe e não pode haver repetição.',
             'description.required'=>'A descrição é necessária.',
             'composition.required'=>'A composição é necessária.',

@@ -14,8 +14,8 @@
                     <div class="form-group">
                         <label for="artigo">Artigo</label>
                         <select id="artigo" name="artigo" class="form-control" >
-                            @foreach($artigos as $key => $value)
-                            <option value="{{ $key }}">{{ $value }}</option>
+                            @foreach($artigos as $ar)
+                            <option value="{{ $ar->id }}">{{ $ar->article .' - '. $ar->description }}</option>
                             @endforeach
                         </select>
                     </div>

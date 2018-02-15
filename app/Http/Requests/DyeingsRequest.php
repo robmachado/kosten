@@ -24,7 +24,7 @@ class DyeingsRequest extends FormRequest
     public function rules()
     {
         return [
-            'class'=>'required|min:3|max:50|unique:dyeings,class,'.$this->id,
+            'class'=>'required|regex:/^[\w_]*$/|min:3|max:50|unique:dyeings,class,'.$this->id,
             'value'=>'required|numericbr'
         ];
     }

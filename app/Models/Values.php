@@ -26,7 +26,7 @@ trait Values
     
     public static function brnumber($value, $decimals = 2)
     {
-        return number_format($value,$decimals,',','.');
+        return number_format($value,$decimals,'.',',');
     }
     
     public static function brdata($value)

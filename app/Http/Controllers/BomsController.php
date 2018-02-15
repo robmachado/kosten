@@ -55,8 +55,11 @@ class BomsController extends Controller
         } else {
             $bom = new Bom;
 	}
-        $p = $request->perc1+$request->perc2+$request->perc3;
-        if ($p !== 100) {
+        $p1 = !empty($request->perc1) ? str_replace(',','.',$request->perc1) : 0.00;
+        $p2 = !empty($request->perc2) ? str_replace(',','.',$request->perc2) : 0.00;
+        $p3 = !empty($request->perc3) ? str_replace(',','.',$request->perc3) : 0.00;
+        $p = $p1+$p2+$p3;
+        if ($p != 100.0) {
             return redirect()->back()->withErrors(['As quantidades não correspondem a 100%, verifique as percentagens usadas.']);
         }
         $bom->id = $request->id?:0;
@@ -71,12 +74,20 @@ class BomsController extends Controller
         $bom->perc2 = $request->perc2;
 	$bom->perc3 = $request->perc3;
 	$bom->losses = $request->losses;
-        $bom->save();
+        try {
+            $bom->save();
+        } catch (\Illuminate\Database\QueryException $e) {
+            $error_code = $e->errorInfo[1];
+            if ($error_code == 1062){
+                return redirect()->back()->withErrors(["Esse codigo [$bom->article] já existe."]);
+            }
+        }    
         return redirect('/boms');
     }
 
     public function store(BomRequest $request)
     {
+        
 	return $this->update($request);
     }
 

@@ -13,6 +13,8 @@ class RawMaterial extends Model
     
     protected $fillable = [
         'reference',
+        'valueorigin',
+        'icms',
         'value',
         'valueicms',
         'provider_cod',

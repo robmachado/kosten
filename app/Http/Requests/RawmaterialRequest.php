@@ -24,7 +24,9 @@ class RawmaterialRequest extends FormRequest
     public function rules()
     {
         return [
-            'reference' => 'required|min:3|max:50|unique:rawmaterials,reference,'.$this->id,
+            'reference' => 'required|regex:/^[\w\/]*$/|min:3|max:50|unique:rawmaterials,reference,'.$this->id,
+            'valueorigin' => 'required|numericbr',
+            'icms' => 'required|numericbr',
             'value' => 'required|numericbr',
             'valueicms' => 'required|numericbr|greaterthan:value',
             'provider_cod' => 'nullable|min:3|max:255',
@@ -41,6 +43,7 @@ class RawmaterialRequest extends FormRequest
     {
         return [
             'reference.required'=>'O nome da classificação é necessário.',
+            'reference.regex' => 'Não pode usar acentos e outras pontuações apenas /.',
             'reference.min'=>'Use pelo menos tres caracteres.',
             'reference.max'=>'No máximo coloque 50 caracteres',
             'reference.unique'=>'A denominação da matéria-prima deve ser única,'. $this->reference .' já existe e não pode haver repetição.',

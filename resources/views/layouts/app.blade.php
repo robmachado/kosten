@@ -87,13 +87,13 @@
             });
         }, 2000);
         
-        $('#inteiro').focusout(function() {
+        $('#valueorigin').focusout(function() {
             var icms = $('#icms').val()/100;
-            calc($('#inteiro').val(), icms);
+            calc($('#valueorigin').val(), icms);
         });
         $('#icms').focusout(function() {
             var icms = $('#icms').val()/100;
-            calc($('#inteiro').val(), icms);
+            calc($('#valueorigin').val(), icms);
         });
         
         });

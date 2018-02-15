@@ -7,6 +7,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\View;
 use App\Models\RawMaterial;
+use App\Models\Bom;
 use App\Http\Requests\RawmaterialRequest;
 use DB;
 
@@ -28,6 +29,10 @@ class RawmaterialsController extends Controller
     public function edit(Request $request, $id)
     {
     	$rawmaterial = Rawmaterial::findOrFail($id);
+        if (empty($rawmaterial->valueorigin)) {
+            $rawmaterial->valueorigin = round($rawmaterial->valueicms/(1-0.0925),2);
+            $rawmaterial->icms = round((($rawmaterial->valueicms - $rawmaterial->value)/$rawmaterial->valueorigin)*100,0);
+        }
         return view('rawmaterials.add', [
             'model' => $rawmaterial
         ]);
@@ -60,11 +65,19 @@ class RawmaterialsController extends Controller
 	$rawmaterial = null;
 	if ($request->id > 0) {
             $rawmaterial = Rawmaterial::findOrFail($request->id);
+            if ($rawmaterial->reference !== $request->reference) {
+                //alterar os BOM
+                $b = Bom::where('raw1', '=', $rawmaterial->reference)->update(['raw1' => $request->reference]);
+                $b = Bom::where('raw2', '=', $rawmaterial->reference)->update(['raw2' => $request->reference]);
+                $b = Bom::where('raw3', '=', $rawmaterial->reference)->update(['raw3' => $request->reference]);
+            }
         } else { 
             $rawmaterial = new Rawmaterial;
 	}
         $rawmaterial->id = $request->id ? : 0;
         $rawmaterial->reference = $request->reference;
+        $rawmaterial->valueorigin = $request->valueorigin;
+        $rawmaterial->icms = $request->icms;
         $rawmaterial->value = $request->value;
         $rawmaterial->valueicms = $request->valueicms;
         $rawmaterial->provider_cod = !empty($request->provider_cod) ? $request->provider_cod : '';
@@ -75,6 +88,7 @@ class RawmaterialsController extends Controller
         $rawmaterial->filaments = !empty($request->filaments) ? $request->filaments : 0;
         $rawmaterial->finishing = !empty($request->finishing) ? $request->finishing : '';
         $rawmaterial->save();
+        
         return redirect('/rawmaterials');
     }
 
