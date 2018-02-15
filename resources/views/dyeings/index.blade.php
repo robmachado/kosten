@@ -17,7 +17,8 @@
               <thead>
                 <tr bgcolor="#AAAAAA">
                     <th class="text-center">Id</th>
-                    <th class="text-center">Tipo</th>
+                    <th class="text-left">Tipo</th>
+                    <th class="text-left">Código</th>
                     <th class="text-center">Custo</th>
                     <th style="width:5%"></th>
                     <th style="width:5%"></th>
@@ -27,7 +28,8 @@
               @foreach($dyes as $key => $value)
                 <tr>
                     <td class="text-center" style="width:10%">{{ $value->id }}</td>
-                    <td style="width:60%">{{ $value->class }}</td>
+                    <td style="width:50%">{{ $value->class }}</td>
+                    <td style="width:10%">{{ $value->code }}</td>
                     <td class="text-right" style="width:20%">R$ {{ $value->value_formatted }}</td>
                     <td style="width:5%">
                         <a href="{{ url('dyeings') }}/{{ $value->id }}/edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>

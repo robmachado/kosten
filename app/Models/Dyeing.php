@@ -10,11 +10,16 @@ class Dyeing extends Model
     
     protected $table = 'dyeings';
     
-    protected $fillable = ['class', 'value'];
+    protected $fillable = ['class', 'code', 'value'];
     
     public function setClassAttribute($value)
     {
         $this->attributes['class'] = str_replace(' ', '', strtoupper(trim($value)));
+    }
+    
+    public function setCodeAttribute($value)
+    {
+        $this->attributes['code'] = str_replace(' ', '', strtoupper(trim($value)));
     }
         
     public function setValueAttribute($value)

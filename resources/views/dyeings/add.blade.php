@@ -35,6 +35,15 @@
                     @endif
                 </div>
             </div>
+            <div class="form-group {{ $errors->has('code') ? 'has-error' : '' }}">
+                <label for="code" class="col-sm-3 control-label">Codigo</label>
+                <div class="col-sm-6">
+                    <input type="text" name="code" id="code" class="form-control" value="{{ $model->code or old('code') }}">
+                    @if($errors->has('code'))
+                        <span class="help-block">{{ $errors->first('code') }}</span>
+                    @endif
+                </div>
+            </div>            
             <div class="form-group {{ $errors->has('value') ? 'has-error' : '' }}">
                 <label for="value" class="col-sm-3 control-label">Valor Custo (R$)</label>
                 <div class="col-sm-6">
