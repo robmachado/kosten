@@ -3,7 +3,7 @@
 <h2 class="page-header">Embalagens</h2>
 <div class="panel panel-default">
     <div class="panel-heading">
-        Embalagens  <a class="pull-right" href="{{ route('home') }}"><i class="glyphicon glyphicon-chevron-left"></i> Voltar</a>
+        Tipos de Embalagens (sku) <a class="pull-right" href="{{ route('home') }}"><i class="glyphicon glyphicon-chevron-left"></i> Voltar</a>
     </div>
     @if (session()->has('success'))
     <div class="alert alert-success">

@@ -24,6 +24,7 @@ Route::get('/rawmaterials/overprice', 'RawmaterialsController@overprice')->name(
 Route::post('/rawmaterials/overprice', 'RawmaterialsController@overprice')->name('rawmaterials.overprice');
 
 Route::group(['middleware' => 'auth'], function () {
+    Route::resource('/users', 'UsersController');
     Route::resource('/criterias', 'CriteriasController');
     Route::resource('/dyeings', 'DyeingsController');
     Route::resource('/rawmaterials', 'RawmaterialsController');
