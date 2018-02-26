@@ -41,16 +41,16 @@
                     >
                     <td class="text-center">{{ $value->id }}</td>
                     <td>{{ $value->reference }}</td>
-                    <td>R$ {{ $value->value_formatted }}</td>
-                    <td>R$ {{ $value->valueicms_formatted }}</td>
-                    <td>{{ $value->provider_cod }}</td>
-                    <td>{{ $value->description }}</td>
-                    <td>{{ $value->basecomponent }}</td>
-                    <td>{{ $value->cables }}</td>
-                    <td>{{ $value->dtex }}</td>
-                    <td>{{ $value->filaments }}</td>
-                    <td>{{ $value->finishing }}</td>
-                    <td>{{ $value->updated_at }}</td>
+                    <td><small>R$ {{ $value->value_formatted }}</small></td>
+                    <td><small>R$ {{ $value->valueicms_formatted }}</small></td>
+                    <td><small>{{ $value->provider_cod }}</small></td>
+                    <td><small>{{ $value->description }}</small></td>
+                    <td><small>{{ $value->basecomponent }}</small></td>
+                    <td><small>{{ $value->cables }}</small></td>
+                    <td><small>{{ $value->dtex }}</small></td>
+                    <td><small>{{ $value->filaments }}</small></td>
+                    <td><small>{{ $value->finishing }}</small></td>
+                    <td><small>{{ $value->updated_at }}</small></td>
                     <td><a href="{{ url('rawmaterials') }}/{{ $value->id }}/edit"><i class="fa fa-pencil-square-o" aria-hidden="true" style="color:#3978A7"></i></a></td>
                     <td>
                         {!! Btn::delete($value->id, $value->reference)!!}
