@@ -49,7 +49,6 @@ class KnittingsController extends Controller
         } else { 
             $knitting = new Knitting;
 	}
-        dd($request->id);
         $knitting->id = $request->id?:0;
 	$knitting->cod = strtoupper(trim($request->cod));
         $knitting->description = strtoupper(trim($request->description));

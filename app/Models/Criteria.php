@@ -24,6 +24,7 @@ class Criteria extends Model
         'ir'
     ];
     
+    
     public function setOperationalAttribute($value)
     {
        $this->attributes['operational'] = Values::inteiro($value);
@@ -31,7 +32,7 @@ class Criteria extends Model
 
     public function getOperationalFormattedAttribute()
     {
-       return Values::brnumber($this->operational, 2);
+       return Values::brnumber($this->operational, 2); 
     }
     
     public function setFinancialAttribute($value)
@@ -133,4 +134,5 @@ class Criteria extends Model
     {
        return Values::brnumber($this->ir*100, 2);
     }
+     
 }

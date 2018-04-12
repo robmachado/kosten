@@ -15,6 +15,9 @@ trait Values
     
     public static function real($value)
     {
+        if (strpos($value, '.') !== false) {
+            $value = str_replace('.', '', $value);
+        }
         return (float) str_replace(',', '.', $value);
     }
     
@@ -26,7 +29,9 @@ trait Values
     
     public static function brnumber($value, $decimals = 2)
     {
-        return number_format($value,$decimals,'.',',');
+        $v = (float) $value;
+        $nv = number_format($v,$decimals,',','');
+        return $nv;
     }
     
     public static function brdata($value)

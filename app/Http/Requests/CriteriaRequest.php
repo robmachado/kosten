@@ -24,8 +24,8 @@ class CriteriaRequest extends FormRequest
     public function rules()
     {
         return [
-            'operational' => 'required|integer',
-            'financial' => 'required|integer',
+            'operational' => 'required|numericbr',
+            'financial' => 'required|numericbr',
             'apportionment' => 'required|integer',
             'profit'=>'required|numericbr',
             'commission'=>'required|numericbr',
