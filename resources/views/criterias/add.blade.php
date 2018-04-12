@@ -31,7 +31,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="apportionment" class="col-sm-3 control-label">Rateio (kg)</label>
+                <label for="apportionment" class="col-sm-3 control-label">Rateio (ton)</label>
                 <div class="col-sm-6">
                     <input type="text" name="apportionment" id="apportionment" class="form-control" value="{{ isset($model->apportionment_formatted) ? $model->apportionment_formatted : old('apportionment') }}">
                 </div>

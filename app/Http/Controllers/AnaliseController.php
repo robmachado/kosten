@@ -609,6 +609,9 @@ class AnaliseController extends Controller
             $custoEmbalagem = $pack->value * $pack->quota;
             $custoDiretoTotalcom =  $custoDiretocom + $custoEmbalagem;
             $custoDiretoTotalsem =  $custoDiretosem + $custoEmbalagem;
+            $pv0 = $custoDiretoTotalcom;
+            $pv7 = $custoDiretoTotalsem;
+            $pv12 = $custoDiretoTotalsem;
             $resp[] = [
                 'cod' => substr($artigo->article,0,4),
                 'crawcom' => $custoMPcom,

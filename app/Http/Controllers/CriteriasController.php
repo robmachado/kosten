@@ -36,23 +36,25 @@ class CriteriasController extends Controller
     public function show(Request $request, $id)
     {
 	$criteria = Criteria::findOrFail($id);
+        dd($criteria);
         return view('criterias.show', [
             'model' => $criteria
         ]);
     }
 
-    public function update(CriteriaRequest $request)
+    public function update(Request $request, $id)
     {
 	$criteria = null;
-	if ($request->id > 0) {
-            $criteria = Criteria::findOrFail($request->id);
-        } else { 
+	if ($id > 0) {
+            $criteria = Criteria::findOrFail($id);
+        } else {
             $criteria = new Criteria;
 	}
+        //dd($request);
         $criteria->id = $request->id ? : 0;
-        $criteria->operational = number_format($request->operational, 0, '', '');
-        $criteria->financial = number_format($request->financial, 0, '', '');
-        $criteria->apportionment = number_format($request->apportionment, 0, '', '');
+        $criteria->operational = (int) $request->operational;
+        $criteria->financial = (int) $request->financial;
+        $criteria->apportionment = (int) $request->apportionment;
         $criteria->profit = $request->profit;
         $criteria->commission = $request->commission;
         $criteria->rate = $request->rate;
@@ -65,7 +67,7 @@ class CriteriasController extends Controller
         return redirect('/criterias');
     }
 
-    public function store(CriteriaRequest $request)
+    public function store(Request $request)
     {
     	return $this->update($request);
     }

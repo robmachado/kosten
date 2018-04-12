@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Knitting;
@@ -50,6 +49,7 @@ class KnittingsController extends Controller
         } else { 
             $knitting = new Knitting;
 	}
+        dd($request->id);
         $knitting->id = $request->id?:0;
 	$knitting->cod = strtoupper(trim($request->cod));
         $knitting->description = strtoupper(trim($request->description));

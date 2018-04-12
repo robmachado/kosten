@@ -46,7 +46,7 @@ class Criteria extends Model
     
     public function setApportionmentAttribute($value)
     {
-       $this->attributes['apportionment'] = Values::inteiro($value);
+       $this->attributes['apportionment'] = Values::inteiro($value)*1000;
     }
 
     public function getApportionmentFormattedAttribute()
