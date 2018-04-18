@@ -15,7 +15,7 @@ trait Values
     
     public static function real($value)
     {
-        if (strpos($value, '.') !== false) {
+        if (strpos($value, '.') !== false && strpos($value, ',') !== false) {
             $value = str_replace('.', '', $value);
         }
         return (float) str_replace(',', '.', $value);

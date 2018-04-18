@@ -34,7 +34,7 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a href="{{ route('rawmaterials.index') }}">Lista Fios</a></li>
-                                    <li><a href="{{ route('rawmaterials.overprice') }}">Atualiza Preços</a></li>
+                                    <!---<li><a href="{{ route('rawmaterials.overprice') }}">Atualiza Preços</a></li>--->
                                 </ul>    
                             </li>
                             <li><a href="{{ route('knittings.index') }}">Malharia</a></li>
