@@ -1,10 +1,5 @@
-<?php
 
-/**
- * envoy run mytask --ip=111.111.111.111 --password=mypass
- */
-
-@servers(['production' => ["roberto@{{ $ip }}"]])
+@servers(['prod' => ['roberto@104.248.48.247']])
 
 @setup
     $repo = 'git@github.com:robmachado/kosten.git';
@@ -26,11 +21,11 @@
     live
 @endstory
 
-@task('git', ['on' => 'production'])
+@task('git', ['on' => 'prod'])
     git clone -b {{ $branch }} "{{ $repo }}" {{ $deployment }}
 @endtask
     
-@task('install', ['on' => 'production'])
+@task('install', ['on' => 'prod'])
     cd {{ $deployment }}
     rm -rf {{ $deployment }}/storage
     ln -nfs {{ $storage }} {{ $deployment }}/storage
@@ -42,7 +37,7 @@
     php artisan migrate --force
 @endtask
     
-@task('live', ['on' => 'production'])
+@task('live', ['on' => 'prod'])
     ln -nfs {{ $deployment }} {{ $serve }}
 @endtask
 
