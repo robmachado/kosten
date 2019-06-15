@@ -15,7 +15,7 @@ class AddIntegralvalueToRawmaterialsTable extends Migration
     {
         Schema::table('rawmaterials', function (Blueprint $table) {
             $table->decimal('valueorigin', 8, 4)->nullable();
-            $table->decimal('icms', 8, 4)->nullable();
+            $table->decimal('icms', 8, 4)->nullable();//percentagem de ICMS
         });
     }
 

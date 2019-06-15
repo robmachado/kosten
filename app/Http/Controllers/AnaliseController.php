@@ -56,7 +56,7 @@ class AnaliseController extends Controller
             </table>
             <h3>Custos Diretos</h3>
             <br/>
-                <p><strong>Custo das Materias-primas (Fios)  (sem PIS/COFINS)</strong></p>
+                <p><strong>Custo das Materias-primas (Fios)</strong></p>
                 <table>
                     <tbody>
                         <tr>
@@ -74,7 +74,7 @@ class AnaliseController extends Controller
                     </tbody>
                 </table>
                 <br/>
-                <p><strong>Custo de Malharia (sem PIS/COFINS)</strong></p>
+                <p><strong>Custo de Malharia</strong></p>
                 <table>
                     <tbody>
                         <tr>
@@ -86,7 +86,7 @@ class AnaliseController extends Controller
                     <tbody>
                 </table>
                 <br/>
-                <p><strong>Custo Tinturaria (sem PIS/COFINS)</strong></p>
+                <p><strong>Custo Tinturaria</strong></p>
                 <table>
                     <tbody>
                         <tr>
@@ -98,7 +98,7 @@ class AnaliseController extends Controller
                     <tbody>
                 </table>
                 <br/>
-                <p><strong>Custo de Embalagem (sem PI/COFINS)</strong></p>
+                <p><strong>Custo de Embalagem</strong></p>
                 <table>
                     <tbody>
                         <tr>
