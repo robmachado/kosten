@@ -12,6 +12,7 @@ class Destination extends Model
      
     protected $fillable = ['destination', 'icms'];
     
+    /*
     public function setIcmsAttribute($value)
     {
         $this->attributes['icms'] = Values::percent($value);
@@ -20,5 +21,5 @@ class Destination extends Model
     public function getIcmsFormattedAttribute()
     {
         return Values::brnumber($this->icms*100,2);
-    }
+    }*/
 }

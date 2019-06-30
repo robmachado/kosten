@@ -19,6 +19,7 @@ class Packaging extends Model
         $this->attributes['pack'] = str_replace(' ', '', strtoupper(trim($value)));
     }
     
+    /*
     public function setValueAttribute($value)
     {
        $this->attributes['value'] = Values::real($value);
@@ -38,4 +39,6 @@ class Packaging extends Model
     {
         return Values::brnumber($this->quota*100,2);
     }
+     * 
+     */
 }

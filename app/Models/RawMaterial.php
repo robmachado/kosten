@@ -15,8 +15,6 @@ class RawMaterial extends Model
         'reference',
         'valueorigin',
         'icms',
-        'value',
-        'valueicms',
         'provider_cod',
         'description',
         'basecomponent',
@@ -30,7 +28,7 @@ class RawMaterial extends Model
     {
         $this->attributes['reference'] = str_replace(' ', '', strtoupper(trim($value)));
     }
-    
+    /*
     public function setValueAttribute($value)
     {
        $this->attributes['value'] = Values::real($value);
@@ -50,7 +48,7 @@ class RawMaterial extends Model
     {
         return Values::brnumber($this->valueicms, 2);
     }
-    
+    */
     public function getUpdatedAtAttribute($date)
     {
         return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d/m/Y');

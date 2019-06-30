@@ -31,10 +31,10 @@ class BomRequest extends FormRequest
             'raw1' => 'required|exists:rawmaterials,reference',
             'raw2' => 'nullable|exists:rawmaterials,reference',
             'raw3' => 'nullable|exists:rawmaterials,reference',
-            'perc1'=>'required|numericbr',
-            'perc2'=>'required_with:raw2|numericbr',
-            'perc3'=>'required_with:raw3|numericbr',
-            'losses'=>'required|numericbr'
+            'perc1'=>'required|numeric',
+            'perc2'=>'required_with:raw2|numeric',
+            'perc3'=>'required_with:raw3|numeric',
+            'losses'=>'required|numeric'
         ];
     }
     

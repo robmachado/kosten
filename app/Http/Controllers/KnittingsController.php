@@ -57,7 +57,7 @@ class KnittingsController extends Controller
         return redirect('/knittings');
     }
 
-    public function store(Request $request)
+    public function store(KnittingRequest $request)
     {
       	return $this->update($request);
     }

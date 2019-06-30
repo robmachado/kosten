@@ -87,7 +87,6 @@ class BomsController extends Controller
 
     public function store(BomRequest $request)
     {
-        
 	return $this->update($request);
     }
 

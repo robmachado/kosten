@@ -24,17 +24,17 @@ class CriteriaRequest extends FormRequest
     public function rules()
     {
         return [
-            'operational' => 'required|numericbr',
-            'financial' => 'required|numericbr',
+            'operational' => 'required|numeric',
+            'financial' => 'required|numeric',
             'apportionment' => 'required|integer',
-            'profit'=>'required|numericbr',
-            'commission'=>'required|numericbr',
-            'rate'=>'required|numericbr',
-            'ipi'=>'required|numericbr',
-            'pis'=>'required|numericbr',
-            'cofins'=>'required|numericbr',
-            'csll'=>'required|numericbr',
-            'ir'=>'required|numericbr'
+            'profit'=>'required|numeric',
+            'commission'=>'required|numeric',
+            'rate'=>'required|numeric',
+            'ipi'=>'required|numeric',
+            'pis'=>'required|numeric',
+            'cofins'=>'required|numeric',
+            'csll'=>'required|numeric',
+            'ir'=>'required|numeric'
         ];
     }
     

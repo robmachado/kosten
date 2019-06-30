@@ -39,7 +39,7 @@
             <div class="form-group {{ $errors->has('icms') ? 'has-error' : '' }}">
                 <label for="icms" class="col-sm-3 control-label">Icms (saída)</label>
                 <div class="col-sm-6">
-                    <input type="text" name="icms" id="icms" class="form-control" value="{{ isset($model->icms_formatted) ? $model->icms_formatted : old('icms') }}">
+                    <input type="number" step="0.01" name="icms" id="icms" class="form-control" value="{{ isset($model->icms) ? $model->icms : old('icms') }}">
                     @if($errors->has('icms'))
                         <span class="help-block">{{ $errors->first('icms') }}</span>
                     @endif

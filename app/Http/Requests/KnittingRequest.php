@@ -26,7 +26,7 @@ class KnittingRequest extends FormRequest
         return [
             'cod'=>'required|min:3|max:10|unique:knittings,cod,'.$this->id,
             'description'=>'nullable|string|min:0|max:255',
-            'price'=>'required|numericbr'
+            'price'=>'required|numeric'
         ];
     }
     
@@ -39,7 +39,7 @@ class KnittingRequest extends FormRequest
             'cod.unique'=>'A denominação da malharia deve ser única,'. $this->cod .' já existe e não pode haver repetição.',
             'description.max'=>'No máximo coloque 255 caracteres.',
             'price.required'=>'O preço do serviço é necessário.',
-            'price.numericbr'=>'O valor deve conter apenas numeros.'
+            'price.numeric'=>'O valor deve conter apenas numeros.'
         ];
     }    
 }

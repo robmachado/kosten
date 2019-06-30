@@ -29,10 +29,13 @@ class RawmaterialsController extends Controller
     public function edit(Request $request, $id)
     {
     	$rawmaterial = Rawmaterial::findOrFail($id);
+        /*
         if (empty($rawmaterial->valueorigin)) {
             $rawmaterial->valueorigin = round($rawmaterial->valueicms/(1-0.0925),2);
             $rawmaterial->icms = round((($rawmaterial->valueicms - $rawmaterial->value)/$rawmaterial->valueorigin)*100,0);
         }
+         * 
+         */
         return view('rawmaterials.add', [
             'model' => $rawmaterial
         ]);
@@ -78,8 +81,8 @@ class RawmaterialsController extends Controller
         $rawmaterial->reference = $request->reference;
         $rawmaterial->valueorigin = $request->valueorigin;
         $rawmaterial->icms = $request->icms;
-        $rawmaterial->value = $request->value;
-        $rawmaterial->valueicms = $request->valueicms;
+        //$rawmaterial->value = $request->value;
+        //$rawmaterial->valueicms = $request->valueicms;
         $rawmaterial->provider_cod = !empty($request->provider_cod) ? $request->provider_cod : '';
         $rawmaterial->description = !empty($request->description) ? $request->description : '';
         $rawmaterial->basecomponent = !empty($request->basecomponent) ? $request->basecomponent : '';

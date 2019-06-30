@@ -28,7 +28,7 @@
                 <tr>
                     <td>{{ $value->id }}</td>
                     <td>{{ $value->destination }}</td>
-                    <td>{{ $value->icms_formatted }} %</td>
+                    <td>{{ $value->icms }} %</td>
                     <td><a href="{{ url('destinations') }}/{{ $value->id }}/edit"><i class="fa fa-pencil-square-o" aria-hidden="true" style="color:#3978A7"></i></a></td>
                     <td>
                         

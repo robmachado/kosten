@@ -65,7 +65,7 @@ class CriteriasController extends Controller
         return redirect('/criterias');
     }
 
-    public function store(Request $request)
+    public function store(CriteriaRequest $request)
     {
     	return $this->update($request);
     }

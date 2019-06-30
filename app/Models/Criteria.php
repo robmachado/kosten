@@ -24,7 +24,7 @@ class Criteria extends Model
         'ir'
     ];
     
-    
+    /*
     public function setOperationalAttribute($value)
     {
        $this->attributes['operational'] = Values::inteiro($value);
@@ -133,6 +133,6 @@ class Criteria extends Model
     public function getIrFormattedAttribute()
     {
        return Values::brnumber($this->ir*100, 2);
-    }
+    }*/
      
 }

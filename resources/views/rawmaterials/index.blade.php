@@ -18,11 +18,11 @@
                 <tr>
                     <th>Id</th>
                     <th>Referencia</th>
-                    <th>Valor s/ICMS</th>
-                    <th>Valor c/ICMS</th>
-                    <th>Cod Fornecedor</th>
+                    <th>Valor</th>
+                    <th>ICMS</th>
+                    <th>Cod.Forn.</th>
                     <th>Descrição</th>
-                    <th>Componente Base</th>
+                    <th>Base</th>
                     <th>Cabos</th>
                     <th>Dtex</th>
                     <th>Filamentos</th>
@@ -34,15 +34,11 @@
               </thead>
               <tbody>
               @foreach($raws as $key => $value)
-                <tr
-                    @if ($value->value >= $value->valueicms) 
-                        class="alert-danger"
-                    @endif
-                    >
+                <tr>
                     <td class="text-center">{{ $value->id }}</td>
                     <td>{{ $value->reference }}</td>
-                    <td><small>R$ {{ $value->value_formatted }}</small></td>
-                    <td><small>R$ {{ $value->valueicms_formatted }}</small></td>
+                    <td><small>R${{ $value->valueorigin }}</small></td>
+                    <td><small>{{ $value->icms }}%</small></td>
                     <td><small>{{ $value->provider_cod }}</small></td>
                     <td><small>{{ $value->description }}</small></td>
                     <td><small>{{ $value->basecomponent }}</small></td>

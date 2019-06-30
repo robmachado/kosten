@@ -21,7 +21,8 @@ class Dyeing extends Model
     {
         $this->attributes['code'] = str_replace(' ', '', strtoupper(trim($value)));
     }
-        
+     
+    /*
     public function setValueAttribute($value)
     {
         $this->attributes['value'] = Values::real($value);
@@ -31,4 +32,6 @@ class Dyeing extends Model
     {
         return Values::brnumber($this->value,2);
     }
+     * 
+     */
 }

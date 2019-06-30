@@ -41,12 +41,12 @@
                     <td><small>{{ $value->composition }}</small></td>
                     <td><small>{{ $value->knittings_cod }}</small></td>
                     <td class="text-center"><small>{{ $value->raw1 }}</small></td>
-                    <td class="text-right"><small>{{ $value->perc1_formatted }}%</small></td>
+                    <td class="text-right"><small>{{ $value->perc1 }}%</small></td>
                     <td class="text-center"><small>{{ $value->raw2 }}</small></td>
-                    <td class="text-right"><small>{{ $value->perc2_formatted }}%</small></td>
+                    <td class="text-right"><small>{{ $value->perc2}}%</small></td>
                     <td class="text-center"><small>{{ $value->raw3 }}</small></td>
-                    <td class="text-right"><small>{{ $value->perc3_formatted }}%</small></td>
-                    <td class="text-right">{{ $value->losses_formatted }}%</td>
+                    <td class="text-right"><small>{{ $value->perc3 }}%</small></td>
+                    <td class="text-right">{{ $value->losses }}%</td>
                     <td><a href="{{ url('boms') }}/{{ $value->id }}/edit"><i class="fa fa-pencil-square-o" aria-hidden="true" style="color:#3978A7"></i></a></td>
                     <td>
                         {!! Btn::delete($value->id, $value->article)!!}

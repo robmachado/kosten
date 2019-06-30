@@ -221,61 +221,61 @@ class AnaliseController extends Controller
         $malharia = Knitting::where('cod','=', $artigo->knittings_cod)->firstOrFail();
         $raw1 = RawMaterial::where('reference','=', $artigo->raw1)->firstOrFail();
         $raw2 = new \stdClass();
-        $raw2->value = 0;
-        $raw2->valueicms = 0;
+        $raw2->valueorigin = 0;
+        $raw2->icms = 0;
         $raw3 = new \stdClass();
-        $raw3->value = 0;
-        $raw3->valueicms = 0;
+        $raw3->valueorigin = 0;
+        $raw3->icms = 0;
         if (!empty($artigo->raw2)) {
             $raw2 = RawMaterial::where('reference','=', $artigo->raw2)->firstOrFail();
         }
         if (!empty($artigo->raw3)) {
             $raw3 = RawMaterial::where('reference','=', $artigo->raw3)->firstOrFail();
         }
-        $custoIndireto = ($criterios->operational + $criterios->financial) / $criterios->apportionment;
+        $custoIndireto = ($criterios->operational + $criterios->financial) / ($criterios->apportionment*1000);
         
         $custoDireto = 0;
         if ($destino->icms == 0) {
-            $v1 = $raw1->valueicms;
-            $v2 = $raw2->valueicms;
-            $v3 = $raw3->valueicms;
+            $v1 = $raw1->valueorigin;
+            $v2 = $raw2->valueorigin;
+            $v3 = $raw3->valueorigin;
             //venda SP, usar os custos com ICMS
-            $custoMP = $artigo->perc1 * $raw1->valueicms
-                + $artigo->perc2 * $raw2->valueicms
-                + $artigo->perc3 * $raw3->valueicms;
+            $custoMP = $artigo->perc1/100 * $v1
+                + $artigo->perc2/100 * $v2
+                + $artigo->perc3/100 * $v3;
         } else {
-            $v1 = $raw1->value;
-            $v2 = $raw2->value;
-            $v3 = $raw3->value;
+            $v1 = $raw1->valueorigin * (1 - ($raw1->icms/100));
+            $v2 = $raw2->valueorigin * (1 - ($raw2->icms/100));
+            $v3 = $raw3->valueorigin * (1 - ($raw3->icms/100));
             //venda !SP, usar os custos sem ICMS
-            $custoMP = $artigo->perc1 * $raw1->value
-                + $artigo->perc2 * $raw2->value
-                + $artigo->perc3 * $raw3->value;
+            $custoMP = $artigo->perc1/100 * $v1
+                + $artigo->perc2/100 * $v2
+                + $artigo->perc3/100 * $v3;
         }
         
         $custoMalha = ($custoMP + $malharia->price)/0.99; //1% de perda
-        $losses = $artigo->losses;
+        $losses = $artigo->losses/100;
         if ($tingimento->value == 0) {
             $losses = 0;
         }
         $custoDireto = ($custoMalha + $tingimento->value) / (1-$losses);
-        $custoEmbalagem = $pack->value * $pack->quota;
+        $custoEmbalagem = $pack->value * $pack->quota/100;
         $custoDiretoTotal =  $custoDireto + $custoEmbalagem;
         
-        $markup = $destino->icms
-            + $criterios->profit 
-            + $criterios->commission 
-            + $criterios->ipi
-            + $criterios->pis
-            + $criterios->cofins
-            + $criterios->csll
-            + $criterios->ir;
+        $markup = $destino->icms/100
+            + $criterios->profit/100 
+            + $criterios->commission/100 
+            + $criterios->ipi/100
+            + $criterios->pis/100
+            + $criterios->cofins/100
+            + $criterios->csll/100
+            + $criterios->ir/100;
         
         $custoTotal = ($custoDiretoTotal+$custoIndireto)/(1-$markup);
      
         $custo = [];
         foreach ($this->pgtos as $pgto) {
-            $juros = (1 + $criterios->rate)**($pgto/30);
+            $juros = (1 + $criterios->rate/100)**($pgto/30);
             $custoFinal = (float) $custoTotal * $juros;
             $custo[$pgto] = round($custoFinal, 2);
         }
@@ -284,10 +284,10 @@ class AnaliseController extends Controller
         $std->article = $artigo->article;
         $std->operational = $criterios->operational;
         $std->financial = $criterios->financial;
-        $std->apportionment = $criterios->apportionment;
-        $std->raw1=$artigo->raw1;
-        $std->raw2=$artigo->raw2;
-        $std->raw3=$artigo->raw3;
+        $std->apportionment = $criterios->apportionment*1000;
+        $std->raw1 = $artigo->raw1;
+        $std->raw2 = $artigo->raw2;
+        $std->raw3 = $artigo->raw3;
         $std->v1 = $v1;
         $std->v2 = $v2;
         $std->v3 = $v3;
@@ -304,7 +304,7 @@ class AnaliseController extends Controller
         $std->custoDireto = $custoDireto;
         $std->pack = $pack->pack;
         $std->packvalue = $pack->value;
-        $std->packquota = $pack->quota*100;
+        $std->packquota = $pack->quota;
         $std->custoEmbalagem = $custoEmbalagem;
         $std->custoIndireto = $custoIndireto;
         $std->custoDiretoTotal = $custoDiretoTotal;
@@ -366,11 +366,11 @@ class AnaliseController extends Controller
                 
             }
             $raw2 = new \stdClass();
-            $raw2->value = 0;
-            $raw2->valueicms = 0;
+            $raw2->valueorigin = 0;
+            $raw2->icms = 0;
             $raw3 = new \stdClass();
-            $raw3->value = 0;
-            $raw3->valueicms = 0;
+            $raw3->valueorigin = 0;
+            $raw3->icms = 0;
             if (!empty($artigo->raw2)) {
                 try {
                     $raw2 = RawMaterial::where('reference','=', $artigo->raw2)->firstOrFail();
@@ -386,50 +386,50 @@ class AnaliseController extends Controller
                 }
             }
             
-            $custoIndireto = (float) ($criterios->operational + $criterios->financial) / $criterios->apportionment;
+            $custoIndireto = (float) ($criterios->operational + $criterios->financial) / ($criterios->apportionment*1000);
             $custoDireto = 0;
             if ($destino->icms == 0) {
-                $v1 = $raw1->valueicms;
-                $v2 = $raw2->valueicms;
-                $v3 = $raw3->valueicms;
+                $v1 = $raw1->valueorigin;
+                $v2 = $raw2->valueorigin;
+                $v3 = $raw3->valueorigin;
                 //venda SP, usar os custos com ICMS
-                $custoMP = (float) $artigo->perc1 * $raw1->valueicms
-                    + $artigo->perc2 * $raw2->valueicms
-                    + $artigo->perc3 * $raw3->valueicms;
+                $custoMP = (float) $artigo->perc1/100 * $v1
+                    + $artigo->perc2/100 * $v2
+                    + $artigo->perc3/100 * $v3;
             } else {
-                $v1 = $raw1->value;
-                $v2 = $raw2->value;
-                $v3 = $raw3->value;
+                $v1 = $raw1->valueorigin * (1 - $raw1->icms/100);
+                $v2 = $raw2->valueorigin * (1 - $raw1->icms/100);
+                $v3 = $raw3->valueorigin * (1 - $raw1->icms/100);
                 //venda !SP, usar os custos sem ICMS
-                $custoMP = (float) $artigo->perc1 * $raw1->value
-                    + $artigo->perc2 * $raw2->value
-                    + $artigo->perc3 * $raw3->value;
+                $custoMP = (float) $artigo->perc1 * $v1
+                    + $artigo->perc2 * $v2
+                    + $artigo->perc3 * $v3;
             }
                         
             $custoMalha = (float) ($custoMP + $malharia->price)/0.99; //1% de perda
-            $losses = $artigo->losses;
+            $losses = $artigo->losses/100;
             if ($tingimento->value == 0) {
                 $losses = 0;
             }
             $custoDireto = (float) ($custoMalha + $tingimento->value) / (1-$losses);
-            $custoEmbalagem = $pack->value * $pack->quota;
+            $custoEmbalagem = $pack->value * $pack->quota/100;
             $custoDiretoTotal =  $custoDireto + $custoEmbalagem;
             
-            $markup = (float) $destino->icms
-                + $criterios->profit 
-                + $criterios->commission 
-                + $criterios->ipi
-                + $criterios->pis
-                + $criterios->cofins
-                + $criterios->csll
-                + $criterios->ir;
+            $markup = (float) $destino->icms/100
+                + $criterios->profit/100 
+                + $criterios->commission/100 
+                + $criterios->ipi/100
+                + $criterios->pis/100
+                + $criterios->cofins/100
+                + $criterios->csll/100
+                + $criterios->ir/100;
                         
             $custoTotal = ($custoDiretoTotal+$custoIndireto)/(1-$markup);
 
             $custo = [];
 
             foreach ($pgtos as $pgto) {
-                $juros = (1 + $criterios->rate)**($pgto/30);
+                $juros = (1 + $criterios->rate/100)**($pgto/30);
                 $custoFinal = (float) $custoTotal * $juros;
                 $custo[$pgto] = round($custoFinal, 2);
             }
@@ -438,10 +438,10 @@ class AnaliseController extends Controller
             $std->article = $artigo->article;
             $std->operational = $criterios->operational;
             $std->financial = $criterios->financial;
-            $std->apportionment = $criterios->apportionment;
-            $std->raw1=$artigo->raw1;
-            $std->raw2=$artigo->raw2;
-            $std->raw3=$artigo->raw3;
+            $std->apportionment = $criterios->apportionment*1000;
+            $std->raw1 = $artigo->raw1;
+            $std->raw2 = $artigo->raw2;
+            $std->raw3 = $artigo->raw3;
             $std->v1 = $v1;
             $std->v2 = $v2;
             $std->v3 = $v3;
@@ -458,7 +458,7 @@ class AnaliseController extends Controller
             $std->custoDireto = $custoDireto;
             $std->pack = $pack->pack;
             $std->packvalue = $pack->value;
-            $std->packquota = $pack->quota*100;
+            $std->packquota = $pack->quota;
             $std->custoEmbalagem = $custoEmbalagem;
             $std->custoIndireto = $custoIndireto;
             $std->custoDiretoTotal = $custoDiretoTotal;
@@ -484,7 +484,7 @@ class AnaliseController extends Controller
                 'explain'=>$explain
             ];
         }
-        $icms = $destino->icms*100;
+        $icms = $destino->icms;
         $params = [
             'destino' => $destino->destination,
             'tingimento'=>$tingimento->class,
@@ -509,19 +509,19 @@ class AnaliseController extends Controller
         $tmp = str_replace('{{ valor1 }}',number_format($std->v1, 2, ',', '.'),$tmp);
         $tmp = str_replace('{{ valor2 }}',number_format($std->v2, 2, ',', '.'),$tmp);
         $tmp = str_replace('{{ valor3 }}',number_format($std->v3, 2, ',', '.'),$tmp);
-        $tmp = str_replace('{{ p1 }}',number_format($std->perc1 * 100, 2, ',', '.'),$tmp);
-        $tmp = str_replace('{{ p2 }}',number_format($std->perc2 * 100, 2, ',', '.'),$tmp);
-        $tmp = str_replace('{{ p3 }}',number_format($std->perc3 * 100, 2, ',', '.'),$tmp);
-        $tmp = str_replace('{{ preco1 }}',number_format($std->perc1 * $std->v1, 2, ',', '.'),$tmp);
-        $tmp = str_replace('{{ preco2 }}',number_format($std->perc2 * $std->v2, 2, ',', '.'),$tmp);
-        $tmp = str_replace('{{ preco3 }}',number_format($std->perc3 * $std->v3, 2, ',', '.'),$tmp);
+        $tmp = str_replace('{{ p1 }}',number_format($std->perc1, 2, ',', '.'),$tmp);
+        $tmp = str_replace('{{ p2 }}',number_format($std->perc2, 2, ',', '.'),$tmp);
+        $tmp = str_replace('{{ p3 }}',number_format($std->perc3, 2, ',', '.'),$tmp);
+        $tmp = str_replace('{{ preco1 }}',number_format($std->perc1/100 * $std->v1, 2, ',', '.'),$tmp);
+        $tmp = str_replace('{{ preco2 }}',number_format($std->perc2/100 * $std->v2, 2, ',', '.'),$tmp);
+        $tmp = str_replace('{{ preco3 }}',number_format($std->perc3/100 * $std->v3, 2, ',', '.'),$tmp);
         $tmp = str_replace('{{ precomp }}',number_format($std->custoMP, 2, ',', '.'),$tmp);
         $tmp = str_replace('{{ cod }}',$std->knittings_cod,$tmp);
         $tmp = str_replace('{{ valorkni }}',number_format($std->price, 2, ',', '.'),$tmp);
         $tmp = str_replace('{{ mpmal }}',number_format($std->custoMalha, 2, ',', '.'),$tmp);
         $tmp = str_replace('{{ tipo }}',$std->class,$tmp);
         $tmp = str_replace('{{ valortint }}',number_format($std->value, 2, ',', '.'),$tmp);
-        $tmp = str_replace('{{ losses }}',number_format($std->losses*100, 2, ',', '.'),$tmp);
+        $tmp = str_replace('{{ losses }}',number_format($std->losses, 2, ',', '.'),$tmp);
         $tmp = str_replace('{{ custodir }}',number_format($std->custoDireto, 2, ',', '.'),$tmp);
         $tmp = str_replace('{{ pack }}',$std->pack,$tmp);
         $tmp = str_replace('{{ packvalue }}',number_format($std->packvalue, 2, ',', '.'),$tmp);
@@ -531,16 +531,16 @@ class AnaliseController extends Controller
         $tmp = str_replace('{{ custoemb }}',number_format($std->custoEmbalagem, 2, ',', '.'),$tmp);
         $tmp = str_replace('{{ custodirtotal }}',number_format($std->custoDiretoTotal, 2, ',', '.'),$tmp);
         $tmp = str_replace('{{ custoprod }}',number_format($std->custoDiretoTotal + $std->custoIndireto, 2, ',', '.'),$tmp);
-        $tmp = str_replace('{{ icms }}',number_format($std->icms*100, 2, ',', '.'),$tmp);
-        $tmp = str_replace('{{ ipi }}',number_format($std->ipi*100, 2, ',', '.'),$tmp);
-        $tmp = str_replace('{{ pis }}',number_format($std->pis*100, 2, ',', '.'),$tmp);
-        $tmp = str_replace('{{ cofins }}',number_format($std->cofins*100, 2, ',', '.'),$tmp);
-        $tmp = str_replace('{{ csll }}',number_format($std->csll*100, 2, ',', '.'),$tmp);
-        $tmp = str_replace('{{ ir }}',number_format($std->ir*100, 2, ',', '.'),$tmp);
-        $tmp = str_replace('{{ comiss }}',number_format($std->commission*100, 2, ',', '.'),$tmp);
-        $tmp = str_replace('{{ lucro }}',number_format($std->profit*100, 2, ',', '.'),$tmp);
-        $tmp = str_replace('{{ markup }}',number_format($std->markup*100, 2, ',', '.'),$tmp);
-        $tmp = str_replace('{{ complementar }}',number_format((1-$std->markup)*100, 2, ',', '.'),$tmp);
+        $tmp = str_replace('{{ icms }}',number_format($std->icms, 2, ',', '.'),$tmp);
+        $tmp = str_replace('{{ ipi }}',number_format($std->ipi, 2, ',', '.'),$tmp);
+        $tmp = str_replace('{{ pis }}',number_format($std->pis, 2, ',', '.'),$tmp);
+        $tmp = str_replace('{{ cofins }}',number_format($std->cofins, 2, ',', '.'),$tmp);
+        $tmp = str_replace('{{ csll }}',number_format($std->csll, 2, ',', '.'),$tmp);
+        $tmp = str_replace('{{ ir }}',number_format($std->ir, 2, ',', '.'),$tmp);
+        $tmp = str_replace('{{ comiss }}',number_format($std->commission, 2, ',', '.'),$tmp);
+        $tmp = str_replace('{{ lucro }}',number_format($std->profit, 2, ',', '.'),$tmp);
+        $tmp = str_replace('{{ markup }}',number_format($std->markup, 2, ',', '.'),$tmp);
+        $tmp = str_replace('{{ complementar }}',number_format((1-$std->markup/100)*100, 2, ',', '.'),$tmp);
         $tmp = str_replace('{{ final }}',number_format($std->custoTotal, 2, ',', '.'),$tmp);
         return $tmp;    
     }

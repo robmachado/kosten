@@ -29,17 +29,17 @@
               @foreach($crits as $key => $value)
                 <tr>
                     <td>{{ $value->id }}</td>
-                    <td>R$ {{ $value->operational_formatted }}</td>
-                    <td>R$ {{ $value->financial_formatted }}</td>
-                    <td>{{ $value->apportionment_formatted }} ton</td>
-                    <td>{{ $value->profit_formatted }} %</td>
-                    <td>{{ $value->commission_formatted }} %</td>
-                    <td>{{ $value->rate_formatted }} %</td>
-                    <td>{{ $value->ipi_formatted }} %</td>
-                    <td>{{ $value->pis_formatted }} %</td>
-                    <td>{{ $value->cofins_formatted }} %</td>
-                    <td>{{ $value->csll_formatted }} %</td>
-                    <td>{{ $value->ir_formatted }} %</td>
+                    <td>R$ {{ $value->operational }}</td>
+                    <td>R$ {{ $value->financial }}</td>
+                    <td>{{ $value->apportionment }} ton</td>
+                    <td>{{ $value->profit }} %</td>
+                    <td>{{ $value->commission }} %</td>
+                    <td>{{ $value->rate }} %</td>
+                    <td>{{ $value->ipi }} %</td>
+                    <td>{{ $value->pis }} %</td>
+                    <td>{{ $value->cofins }} %</td>
+                    <td>{{ $value->csll }} %</td>
+                    <td>{{ $value->ir }} %</td>
                     <td><a href="{{ url('criterias') }}/{{ $value->id }}/edit"><i class="fa fa-pencil-square-o" aria-hidden="true" style="color:#3978A7"></i></a></td>
                 </tr>
               @endforeach                    

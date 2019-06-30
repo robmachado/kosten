@@ -30,7 +30,7 @@
                     <td class="text-center" style="width:10%">{{ $value->id }}</td>
                     <td style="width:50%">{{ $value->class }}</td>
                     <td style="width:10%">{{ $value->code }}</td>
-                    <td class="text-right" style="width:20%">R$ {{ $value->value_formatted }}</td>
+                    <td class="text-right" style="width:20%">R$ {{ $value->value }}</td>
                     <td style="width:5%">
                         <a href="{{ url('dyeings') }}/{{ $value->id }}/edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
                     <td style="width:5%">

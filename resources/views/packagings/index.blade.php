@@ -31,8 +31,8 @@
                     <td class="text-center" style="width:10%">{{ $value->id }}</td>
                     <td style="width:30%">{{ $value->pack }}</td>
                     <td style="width:30%">{{ $value->description }}</td>
-                    <td class="text-right" style="width:15%">R$ {{ $value->value_formatted }}</td>
-                    <td class="text-right" style="width:15%">{{ $value->quota_formatted }}%</td>
+                    <td class="text-right" style="width:15%">R$ {{ $value->value }}</td>
+                    <td class="text-right" style="width:15%">{{ $value->quota }}%</td>
                     <td style="width:5%">
                         <a href="{{ url('packagings') }}/{{ $value->id }}/edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
                     <td style="width:5%">

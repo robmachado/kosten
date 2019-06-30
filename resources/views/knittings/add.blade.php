@@ -48,7 +48,7 @@
             <div class="form-group {{ $errors->has('price') ? 'has-error' : '' }}">
                 <label for="price" class="col-sm-3 control-label">Valor/kg</label>
                 <div class="col-sm-6">
-                    <input type="text" name="price" id="price" class="form-control" value="{{ $model->price_formatted or old('price') }}">
+                    <input type="number" step="0.01" name="price" id="price" class="form-control" value="{{ $model->price or old('price') }}">
                     @if($errors->has('price'))
                         <span class="help-block">{{ $errors->first('price') }}</span>
                     @endif

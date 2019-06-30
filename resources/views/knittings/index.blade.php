@@ -30,7 +30,7 @@
                     <td class="text-center" style="width:10%">{{ $value->id }}</td>
                     <td style="width:20%">{{ $value->cod }}</td>
                     <td style="width:40%">{{ $value->description }}</td>
-                    <td style="width:20%">R$ {{ $value->price_formatted }}</td>
+                    <td style="width:20%">R$ {{ $value->price }}</td>
                     <td style="width:5%"><a href="{{ url('knittings') }}/{{ $value->id }}/edit"><i class="fa fa-pencil-square-o" aria-hidden="true" style="color:#3978A7"></i></a></td>
                     <td style="width:5%">{!! Btn::delete($value->id, $value->cod)!!}</td>
                 </tr>

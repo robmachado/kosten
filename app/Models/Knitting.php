@@ -17,6 +17,7 @@ class Knitting extends Model
         $this->attributes['cod'] = str_replace(' ', '', strtoupper(trim($value)));
     }
     
+    /*
     public function setPriceAttribute($value)
     {
         $this->attributes['price'] = Values::real($value);
@@ -25,5 +26,5 @@ class Knitting extends Model
     public function getPriceFormattedAttribute()
     {
         return Values::brnumber($this->price,2);
-    }
+    }*/
 }

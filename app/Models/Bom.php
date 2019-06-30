@@ -23,7 +23,7 @@ class Bom extends Model
         'perc3',
         'losses'
     ];
-    
+    /*
     public function setPerc1Attribute($value)
     {
        $this->attributes['perc1'] = Values::percent($value);
@@ -63,4 +63,6 @@ class Bom extends Model
     {
         return Values::brnumber($this->perc3*100,2);
     }
+     * 
+     */
 }

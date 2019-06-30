@@ -102,7 +102,7 @@
             <div class="form-group {{ $errors->has('perc1') ? 'has-error' : '' }}">
                 <label for="perc1" class="col-sm-3 control-label">Qtd %1</label>
                 <div class="col-sm-6">
-                    <input type="text" name="perc1" id="perc1" class="form-control" value="{{ isset($model->perc1_formatted) ? $model->perc1_formatted : old('perc1') }}">
+                    <input type="number" step="0.1" name="perc1" id="perc1" class="form-control" value="{{ isset($model->perc1) ? $model->perc1 : old('perc1') }}">
                     @if($errors->has('perc1'))
                         <span class="help-block">{{ $errors->first('perc1') }}</span>
                     @endif
@@ -132,7 +132,7 @@
             <div class="form-group {{ $errors->has('perc2') ? 'has-error' : '' }}">
                 <label for="perc2" class="col-sm-3 control-label">Qtd %2</label>
                 <div class="col-sm-6">
-                    <input type="text" name="perc2" id="perc2" class="form-control" value="{{ isset($model->perc2_formatted) ? $model->perc2_formatted : old('perc2') }}">
+                    <input type="number" step="0.1" name="perc2" id="perc2" class="form-control" value="{{ isset($model->perc2) ? $model->perc2 : old('perc2') }}">
                     @if($errors->has('perc2'))
                         <span class="help-block">{{ $errors->first('perc2') }}</span>
                     @endif
@@ -162,7 +162,7 @@
             <div class="form-group {{ $errors->has('perc3') ? 'has-error' : '' }}">
                 <label for="perc3" class="col-sm-3 control-label">Qtd %3</label>
                 <div class="col-sm-6">
-                    <input type="text" name="perc3" id="perc3" class="form-control" value="{{ isset($model->perc3_formatted) ? $model->perc3_formatted : old('perc3') }}">
+                    <input type="number" step="0.1" name="perc3" id="perc3" class="form-control" value="{{ isset($model->perc3) ? $model->perc3 : old('perc3') }}">
                     @if($errors->has('perc3'))
                         <span class="help-block">{{ $errors->first('perc3') }}</span>
                     @endif
@@ -171,7 +171,7 @@
             <div class="form-group {{ $errors->has('losses') ? 'has-error' : '' }}">
                 <label for="losses" class="col-sm-3 control-label">Perdas</label>
                 <div class="col-sm-6">
-                    <input type="text" name="losses" id="losses" class="form-control" value="{{ isset($model->losses_formatted) ? $model->losses_formatted : old('losses') }}">
+                    <input type="number" step="0.1" name="losses" id="losses" class="form-control" value="{{ isset($model->losses) ? $model->losses : old('losses') }}">
                     @if($errors->has('losses'))
                         <span class="help-block">{{ $errors->first('losses') }}</span>
                     @endif
