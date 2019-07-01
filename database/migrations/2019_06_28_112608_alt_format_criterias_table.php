@@ -14,6 +14,16 @@ class AltFormatCriteriasTable extends Migration
      */
     public function up()
     {
+        Schema::table('criterias', function (Blueprint $table) {
+            $table->decimal('profit', 10, 6)->change();
+            $table->decimal('commission', 10, 6)->change();
+            $table->decimal('rate', 10, 6)->change();
+            $table->decimal('ipi', 10, 6)->change();
+            $table->decimal('pis', 10, 6)->change();
+            $table->decimal('cofins', 10, 6)->change();
+            $table->decimal('csll', 10, 6)->change();
+            $table->decimal('ir', 10, 6)->change();
+        });
         DB::unprepared(""
             . "UPDATE criterias SET "
             . "apportionment=apportionment/1000, "
