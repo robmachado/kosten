@@ -48,7 +48,8 @@ class RawmaterialsController extends Controller
 	   'model' => $rawmaterial
         ]);
     }
-
+    
+    /*
     public function overprice(Request $request)
     {
         if(!$request->has('_token')) {
@@ -62,6 +63,8 @@ class RawmaterialsController extends Controller
         }
         return redirect()->route('rawmaterials.index');
     }
+     * 
+     */
     
     public function update(RawmaterialRequest $request)
     {

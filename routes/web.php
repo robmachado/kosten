@@ -20,8 +20,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/analise', 'AnaliseController@index')->name('analise.index');
 Route::post('/analise', 'AnaliseController@calcular')->name('analise.calcular');
 Route::get('/analise/mpall', 'AnaliseController@mpall')->name('analise.mpall');
-Route::get('/rawmaterials/overprice', 'RawmaterialsController@overprice')->name('rawmaterials.overprice');
-Route::post('/rawmaterials/overprice', 'RawmaterialsController@overprice')->name('rawmaterials.overprice');
+//Route::get('/rawmaterials/overprice', 'RawmaterialsController@overprice')->name('rawmaterials.overprice');
+//Route::post('/rawmaterials/overprice', 'RawmaterialsController@overprice')->name('rawmaterials.overprice');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('/users', 'UsersController');

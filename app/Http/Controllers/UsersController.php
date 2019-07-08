@@ -74,4 +74,8 @@ class UsersController extends Controller
 	session()->flash('success', 'Registro removido!');
 	return back();
     }
+    
+    public function AuthRouteAPI(Request $request){
+        return $request->user();
+    }
 }

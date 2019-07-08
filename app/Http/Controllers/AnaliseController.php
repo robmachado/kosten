@@ -300,7 +300,7 @@ class AnaliseController extends Controller
         $std->custoMalha = $custoMalha;
         $std->class = $tingimento->class;
         $std->value = $tingimento->value;
-        $std->losses = $losses;
+        $std->losses = $artigo->losses;
         $std->custoDireto = $custoDireto;
         $std->pack = $pack->pack;
         $std->packvalue = $pack->value;
@@ -454,7 +454,7 @@ class AnaliseController extends Controller
             $std->custoMalha = $custoMalha;
             $std->class = $tingimento->class;
             $std->value = $tingimento->value;
-            $std->losses = $losses;
+            $std->losses = $artigo->losses;
             $std->custoDireto = $custoDireto;
             $std->pack = $pack->pack;
             $std->packvalue = $pack->value;
@@ -470,7 +470,7 @@ class AnaliseController extends Controller
             $std->ir = $criterios->ir;
             $std->commission = $criterios->commission;
             $std->profit = $criterios->profit;
-            $std->markup = $markup;
+            $std->markup = $markup*100;
             $std->custoTotal = $custoTotal;
             $explain = "";
             if (\Auth::check()) {
