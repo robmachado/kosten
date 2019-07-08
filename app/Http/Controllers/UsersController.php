@@ -75,7 +75,4 @@ class UsersController extends Controller
 	return back();
     }
     
-    public function AuthRouteAPI(Request $request){
-        return $request->user();
-    }
 }
