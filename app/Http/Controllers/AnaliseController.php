@@ -316,7 +316,7 @@ class AnaliseController extends Controller
         $std->ir = $criterios->ir;
         $std->commission = $criterios->commission;
         $std->profit = $criterios->profit;
-        $std->markup = $markup;
+        $std->markup = $markup*100;
         $std->custoTotal = $custoTotal;
         $explain = "";
         if (\Auth::check()) {

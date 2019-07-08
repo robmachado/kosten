@@ -28,16 +28,6 @@
                         @guest
                         @else
                             <li><a href="{{ route('analise.index') }}">Analise</a></li>
-                            <!--- <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
-                                    Fios <span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="{{ route('rawmaterials.index') }}">Lista Fios</a></li>
-                                    <li><a href="{{ route('rawmaterials.overprice') }}">Atualiza Preços</a></li>
-                                </ul>    
-                            </li> 
-                            --->
                             <li><a href="{{ route('rawmaterials.index') }}">Fios</a></li>
                             <li><a href="{{ route('knittings.index') }}">Malharia</a></li>
                             <li><a href="{{ route('dyeings.index') }}">Tinturaria</a></li>
